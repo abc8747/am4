@@ -113,6 +113,26 @@ async def fetch_user_info(ctx: commands.Context) -> tuple[User, UserExtra]:
     return user, user_extra
 
 
+def get_realism_departure_runway_warning(ap: Airport, ac: Aircraft) -> discord.Embed | None:
+    if ap.rwy >= ac.rwy:
+        return None
+    embed = discord.Embed(
+        title="Warning: Departing airport runway too short",
+        description=(
+            f"The aircraft `{ac.name}` has a runway length requirement of `{ac.rwy}`m, "
+            f"but the departing airport `{ap.iata}` ({ap.name}, {ap.country}) has a "
+            f"shorter runway (`{ap.rwy}`m).\n"
+            "Note that AM4 only checks the runway restrictions for arriving airports, "
+            "not departing airports.\n"
+            "This means you will not be able to relocate/fly your existing aircraft from elsewhere "
+            f"to `{ap.iata}`. However, AM4 will allow you to *order new aircraft* to `{ap.iata}` "
+            "and depart from there.\n"
+        ),
+        colour=COLOUR_ERROR,
+    )
+    return embed
+
+
 def get_user_colour(user: User) -> discord.Colour:
     return COLOUR_REALISM if user.game_mode == User.GameMode.REALISM else COLOUR_EASY
 

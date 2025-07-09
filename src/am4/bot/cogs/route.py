@@ -21,6 +21,7 @@ from ..utils import (
     format_flight_time,
     format_ticket,
     format_warning,
+    get_realism_departure_runway_warning,
     get_user_colour,
 )
 
@@ -43,8 +44,8 @@ def format_additional(
 ):
     return (
         f"**   Income**: $ {income:,.0f}\n"
-        f"**  -    Fuel**: $ {fuel*fuel_price/1000:,.0f} ({fuel:,.0f} lb)\n"
-        f"**  -     CO₂**: $ {co2*co2_price/1000:,.0f} ({co2:,.0f} q)\n"
+        f"**  -    Fuel**: $ {fuel * fuel_price / 1000:,.0f} ({fuel:,.0f} lb)\n"
+        f"**  -     CO₂**: $ {co2 * co2_price / 1000:,.0f} ({co2:,.0f} q)\n"
         f"**  - Acheck**: $ {acheck_cost:,.0f}\n"
         f"**  -   Repair**: $ {repair_cost:,.0f}\n"
         f"**  =   Profit**: $ {profit:,.0f}\n"
@@ -102,6 +103,11 @@ class RouteCog(BaseCog):
 
         options = AircraftRoute.Options(trips_per_day_per_ac=tpd, tpd_mode=tpd_mode, config_algorithm=config_algorithm)
         u, _ue = await fetch_user_info(ctx)
+        if (
+            u.game_mode == u.GameMode.REALISM
+            and (warning := get_realism_departure_runway_warning(ap0_query.ap, ac_query.ac)) is not None
+        ):
+            await ctx.send(embed=warning)
 
         acr = AircraftRoute.create(ap0_query.ap, ap1_query.ap, ac_query.ac, options, u)
         if not acr.valid:
@@ -117,7 +123,7 @@ class RouteCog(BaseCog):
         sa = acr.stopover.airport
         stopover_f = f"{format_ap_short(sa, mode=1)}\n" if acr.stopover.exists else ""
         distance_f = (
-            f"{acr.stopover.full_distance:.3f} km (+{acr.stopover.full_distance-acr.route.direct_distance:.3f} km)"
+            f"{acr.stopover.full_distance:.3f} km (+{acr.stopover.full_distance - acr.route.direct_distance:.3f} km)"
             if acr.stopover.exists
             else f"{acr.route.direct_distance:.3f} km (direct)"
         )

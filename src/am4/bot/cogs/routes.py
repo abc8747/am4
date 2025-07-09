@@ -32,6 +32,7 @@ from ..utils import (
     format_demand,
     format_flight_time,
     format_ticket,
+    get_realism_departure_runway_warning,
     get_user_colour,
 )
 
@@ -221,6 +222,10 @@ class RoutesCog(BaseCog):
         )
 
         u, _ue = await fetch_user_info(ctx)
+        if u.game_mode == u.GameMode.REALISM:
+            for ap in ap_queries:
+                if (warning := get_realism_departure_runway_warning(ap.ap, ac_query.ac)) is not None:
+                    await ctx.send(embed=warning)
         # if the tpd is not provided, show generic warning of low tpd
         # otherwise, check if the constraint's equivalent flight time and tpd multiply to be <24 and ~24
         if cons_set:
