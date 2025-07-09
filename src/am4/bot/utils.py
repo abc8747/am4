@@ -1,5 +1,5 @@
 import time
-from typing import Literal
+from typing import Literal, Sequence
 
 import discord
 from discord import AllowedMentions
@@ -113,22 +113,23 @@ async def fetch_user_info(ctx: commands.Context) -> tuple[User, UserExtra]:
     return user, user_extra
 
 
-def get_realism_departure_runway_warning(ap: Airport, ac: Aircraft) -> discord.Embed | None:
-    if ap.rwy >= ac.rwy:
+def get_realism_departure_runway_warning(ac: Aircraft, aps: Sequence[Airport]) -> discord.Embed | None:
+    details = [f"`{ap.iata}` ({ap.name}, {ap.country}) has runway length `{ap.rwy}`ft" for ap in aps if ap.rwy < ac.rwy]
+    if not details:
         return None
+    detail_str = (
+        ("departing airports:\n" + "\n".join(f"- {d}" for d in details))
+        if len(details) > 1
+        else f"departing airport {details[0]}"
+    )
     embed = discord.Embed(
-        title="Warning: Departing airport runway too short",
+        title="Warning: Departing airport restriction",
         description=(
-            f"The aircraft `{ac.name}` has a runway length requirement of `{ac.rwy}`m, "
-            f"but the departing airport `{ap.iata}` ({ap.name}, {ap.country}) has a "
-            f"shorter runway (`{ap.rwy}`m).\n"
-            "Note that AM4 only checks the runway restrictions for arriving airports, "
-            "not departing airports.\n"
-            "This means you will not be able to relocate/fly your existing aircraft from elsewhere "
-            f"to `{ap.iata}`. However, AM4 will allow you to *order new aircraft* to `{ap.iata}` "
-            "and depart from there.\n"
+            f"Aircraft `{ac.name}` requires a runway of at least `{ac.rwy}`ft, but {detail_str}."
+            + f"\nThis means any of your existing `{ac.name}` will not be able to land at, or be "
+            + "relocated to these airports. You must order new aircraft to create new routes."
         ),
-        colour=COLOUR_ERROR,
+        colour=COLOUR_WARNING,
     )
     return embed
 

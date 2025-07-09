@@ -105,7 +105,7 @@ class RouteCog(BaseCog):
         u, _ue = await fetch_user_info(ctx)
         if (
             u.game_mode == u.GameMode.REALISM
-            and (warning := get_realism_departure_runway_warning(ap0_query.ap, ac_query.ac)) is not None
+            and (warning := get_realism_departure_runway_warning(ac_query.ac, (ap0_query.ap,))) is not None
         ):
             await ctx.send(embed=warning)
 
