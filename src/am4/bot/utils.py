@@ -184,29 +184,6 @@ def format_modifiers(apr: Aircraft):
     )
 
 
-def format_warning(w: AircraftRoute.Warning):
-    if w == AircraftRoute.Warning.ERR_NO_STOPOVER:
-        return "No stopovers are possible"
-    elif w == AircraftRoute.Warning.ERR_INSUFFICIENT_DEMAND:
-        return "Insufficient demand"
-    elif w == AircraftRoute.Warning.ERR_DISTANCE_TOO_SHORT:
-        return "Distance too short"
-    elif w == AircraftRoute.Warning.ERR_DISTANCE_TOO_LONG:
-        return "Distance too long"
-    elif w == AircraftRoute.Warning.ERR_RWY_TOO_SHORT:
-        return "Runway too short"
-    elif w == AircraftRoute.Warning.ERR_FLIGHT_TIME_ABOVE_SPECIFIED:
-        return "Flight time above specified limit"
-    elif w == AircraftRoute.Warning.REDUCED_CONTRIBUTION:
-        return "Reduced contribution"
-    elif w == AircraftRoute.Warning.ERR_DISTANCE_ABOVE_SPECIFIED:
-        return "Distance above specified limit"
-    elif w == AircraftRoute.Warning.ERR_TRIPS_PER_DAY_TOO_HIGH:
-        return "Trips per day per aircraft is too high"
-    else:
-        return "Unknown reason"
-
-
 def format_num(num: float, *_pos) -> str:
     num = float(f"{num:.3g}")
     magnitude = 0

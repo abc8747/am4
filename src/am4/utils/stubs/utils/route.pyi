@@ -88,10 +88,12 @@ class AircraftRoute:
         config_algorithm: None | am4.utils.aircraft.Aircraft.PaxConfig.Algorithm | am4.utils.aircraft.Aircraft.CargoConfig.Algorithm
         max_distance: float
         max_flight_time: float
+        min_distance: float
+        min_flight_time: float
         sort_by: AircraftRoute.Options.SortBy
         tpd_mode: AircraftRoute.Options.TPDMode
         trips_per_day_per_ac: int
-        def __init__(self, tpd_mode: AircraftRoute.Options.TPDMode = TPDMode.AUTO, trips_per_day_per_ac: int = 1, max_distance: float = 20015.086796020572, max_flight_time: float = 24.0, config_algorithm: None | am4.utils.aircraft.Aircraft.PaxConfig.Algorithm | am4.utils.aircraft.Aircraft.CargoConfig.Algorithm = None, sort_by: AircraftRoute.Options.SortBy = SortBy.PER_TRIP) -> None:
+        def __init__(self, tpd_mode: AircraftRoute.Options.TPDMode = TPDMode.AUTO, trips_per_day_per_ac: int = 1, max_distance: float = 20015.086796020572, min_distance: float = 0.0, max_flight_time: float = 24.0, min_flight_time: float = 0.0, config_algorithm: None | am4.utils.aircraft.Aircraft.PaxConfig.Algorithm | am4.utils.aircraft.Aircraft.CargoConfig.Algorithm = None, sort_by: AircraftRoute.Options.SortBy = SortBy.PER_TRIP) -> None:
             ...
     class Stopover:
         @staticmethod
@@ -118,6 +120,8 @@ class AircraftRoute:
         
           ERR_DISTANCE_ABOVE_SPECIFIED
         
+          ERR_DISTANCE_BELOW_SPECIFIED
+        
           ERR_DISTANCE_TOO_LONG
         
           ERR_DISTANCE_TOO_SHORT
@@ -128,20 +132,24 @@ class AircraftRoute:
         
           ERR_FLIGHT_TIME_ABOVE_SPECIFIED
         
+          ERR_FLIGHT_TIME_BELOW_SPECIFIED
+        
           ERR_INSUFFICIENT_DEMAND
         
           ERR_TRIPS_PER_DAY_TOO_HIGH
         """
         ERR_DISTANCE_ABOVE_SPECIFIED: typing.ClassVar[AircraftRoute.Warning]  # value = <Warning.ERR_DISTANCE_ABOVE_SPECIFIED: 1>
-        ERR_DISTANCE_TOO_LONG: typing.ClassVar[AircraftRoute.Warning]  # value = <Warning.ERR_DISTANCE_TOO_LONG: 2>
-        ERR_DISTANCE_TOO_SHORT: typing.ClassVar[AircraftRoute.Warning]  # value = <Warning.ERR_DISTANCE_TOO_SHORT: 3>
-        ERR_FLIGHT_TIME_ABOVE_SPECIFIED: typing.ClassVar[AircraftRoute.Warning]  # value = <Warning.ERR_FLIGHT_TIME_ABOVE_SPECIFIED: 6>
-        ERR_INSUFFICIENT_DEMAND: typing.ClassVar[AircraftRoute.Warning]  # value = <Warning.ERR_INSUFFICIENT_DEMAND: 7>
-        ERR_NO_STOPOVER: typing.ClassVar[AircraftRoute.Warning]  # value = <Warning.ERR_NO_STOPOVER: 5>
+        ERR_DISTANCE_BELOW_SPECIFIED: typing.ClassVar[AircraftRoute.Warning]  # value = <Warning.ERR_DISTANCE_BELOW_SPECIFIED: 2>
+        ERR_DISTANCE_TOO_LONG: typing.ClassVar[AircraftRoute.Warning]  # value = <Warning.ERR_DISTANCE_TOO_LONG: 3>
+        ERR_DISTANCE_TOO_SHORT: typing.ClassVar[AircraftRoute.Warning]  # value = <Warning.ERR_DISTANCE_TOO_SHORT: 4>
+        ERR_FLIGHT_TIME_ABOVE_SPECIFIED: typing.ClassVar[AircraftRoute.Warning]  # value = <Warning.ERR_FLIGHT_TIME_ABOVE_SPECIFIED: 7>
+        ERR_FLIGHT_TIME_BELOW_SPECIFIED: typing.ClassVar[AircraftRoute.Warning]  # value = <Warning.ERR_FLIGHT_TIME_BELOW_SPECIFIED: 8>
+        ERR_INSUFFICIENT_DEMAND: typing.ClassVar[AircraftRoute.Warning]  # value = <Warning.ERR_INSUFFICIENT_DEMAND: 9>
+        ERR_NO_STOPOVER: typing.ClassVar[AircraftRoute.Warning]  # value = <Warning.ERR_NO_STOPOVER: 6>
         ERR_RWY_TOO_SHORT: typing.ClassVar[AircraftRoute.Warning]  # value = <Warning.ERR_RWY_TOO_SHORT: 0>
-        ERR_TRIPS_PER_DAY_TOO_HIGH: typing.ClassVar[AircraftRoute.Warning]  # value = <Warning.ERR_TRIPS_PER_DAY_TOO_HIGH: 8>
-        REDUCED_CONTRIBUTION: typing.ClassVar[AircraftRoute.Warning]  # value = <Warning.REDUCED_CONTRIBUTION: 4>
-        __members__: typing.ClassVar[dict[str, AircraftRoute.Warning]]  # value = {'ERR_RWY_TOO_SHORT': <Warning.ERR_RWY_TOO_SHORT: 0>, 'ERR_DISTANCE_ABOVE_SPECIFIED': <Warning.ERR_DISTANCE_ABOVE_SPECIFIED: 1>, 'ERR_DISTANCE_TOO_LONG': <Warning.ERR_DISTANCE_TOO_LONG: 2>, 'ERR_DISTANCE_TOO_SHORT': <Warning.ERR_DISTANCE_TOO_SHORT: 3>, 'REDUCED_CONTRIBUTION': <Warning.REDUCED_CONTRIBUTION: 4>, 'ERR_NO_STOPOVER': <Warning.ERR_NO_STOPOVER: 5>, 'ERR_FLIGHT_TIME_ABOVE_SPECIFIED': <Warning.ERR_FLIGHT_TIME_ABOVE_SPECIFIED: 6>, 'ERR_INSUFFICIENT_DEMAND': <Warning.ERR_INSUFFICIENT_DEMAND: 7>, 'ERR_TRIPS_PER_DAY_TOO_HIGH': <Warning.ERR_TRIPS_PER_DAY_TOO_HIGH: 8>}
+        ERR_TRIPS_PER_DAY_TOO_HIGH: typing.ClassVar[AircraftRoute.Warning]  # value = <Warning.ERR_TRIPS_PER_DAY_TOO_HIGH: 10>
+        REDUCED_CONTRIBUTION: typing.ClassVar[AircraftRoute.Warning]  # value = <Warning.REDUCED_CONTRIBUTION: 5>
+        __members__: typing.ClassVar[dict[str, AircraftRoute.Warning]]  # value = {'ERR_RWY_TOO_SHORT': <Warning.ERR_RWY_TOO_SHORT: 0>, 'ERR_DISTANCE_ABOVE_SPECIFIED': <Warning.ERR_DISTANCE_ABOVE_SPECIFIED: 1>, 'ERR_DISTANCE_BELOW_SPECIFIED': <Warning.ERR_DISTANCE_BELOW_SPECIFIED: 2>, 'ERR_DISTANCE_TOO_LONG': <Warning.ERR_DISTANCE_TOO_LONG: 3>, 'ERR_DISTANCE_TOO_SHORT': <Warning.ERR_DISTANCE_TOO_SHORT: 4>, 'REDUCED_CONTRIBUTION': <Warning.REDUCED_CONTRIBUTION: 5>, 'ERR_NO_STOPOVER': <Warning.ERR_NO_STOPOVER: 6>, 'ERR_FLIGHT_TIME_ABOVE_SPECIFIED': <Warning.ERR_FLIGHT_TIME_ABOVE_SPECIFIED: 7>, 'ERR_FLIGHT_TIME_BELOW_SPECIFIED': <Warning.ERR_FLIGHT_TIME_BELOW_SPECIFIED: 8>, 'ERR_INSUFFICIENT_DEMAND': <Warning.ERR_INSUFFICIENT_DEMAND: 9>, 'ERR_TRIPS_PER_DAY_TOO_HIGH': <Warning.ERR_TRIPS_PER_DAY_TOO_HIGH: 10>}
         def __eq__(self, other: typing.Any) -> bool:
             ...
         def __getstate__(self) -> int:
@@ -161,6 +169,8 @@ class AircraftRoute:
         def __setstate__(self, state: int) -> None:
             ...
         def __str__(self) -> str:
+            ...
+        def to_str(self) -> str:
             ...
         @property
         def name(self) -> str:

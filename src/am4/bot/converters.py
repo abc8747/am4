@@ -1,5 +1,5 @@
 from datetime import timedelta
-from typing import Annotated, Any, List, Literal
+from typing import Annotated, Any, List, Literal, NamedTuple
 
 from discord.ext import commands
 from pydantic import BaseModel, Field
@@ -144,24 +144,43 @@ class CfgAlgCvtr(commands.Converter):
         )
 
 
+class Constraint(NamedTuple):
+    min_distance: float | None
+    max_distance: float | None
+    min_flight_time: float | None
+    max_flight_time: float | None
+
+
 class ConstraintCvtr(commands.Converter):
-    _default = (None, None)
+    _default = Constraint(None, None, None, None)
 
-    def to_flight_time(self, constraint: str) -> float | None:
+    def _parse_one(self, value: str) -> tuple[float | None, float | None]:
         try:
-            time_parsed = acro_cast("max_flight_time", constraint).max_flight_time
-            return time_parsed.total_seconds() / 3600
-        except ValidationError as e:
-            raise ConstraintValidationError(e)
-
-    async def convert(self, ctx: commands.Context, constraint: str) -> tuple[float | None, float | None]:
-        if constraint.strip().lower() == "none":
-            return self._default
-        try:
-            dist_parsed = acro_cast("max_distance", constraint).max_distance
+            dist_parsed = acro_cast("max_distance", value).max_distance
             return dist_parsed, None
         except ValidationError:
-            return None, self.to_flight_time(constraint)
+            try:
+                time_parsed = acro_cast("max_flight_time", value).max_flight_time
+                return None, time_parsed.total_seconds() / 3600
+            except ValidationError as e:
+                raise ConstraintValidationError(e)
+
+    async def convert(self, ctx: commands.Context, constraint: str) -> Constraint:
+        constraint = constraint.strip().lower()
+        if constraint == "none":
+            return self._default
+
+        separator = ".."
+        if separator in constraint:
+            parts = [p.strip() for p in constraint.split(separator, 1)]
+            min_val_str, max_val_str = parts[0] or None, parts[1] or None
+        else:
+            min_val_str, max_val_str = None, constraint
+
+        min_dist, min_time = self._parse_one(min_val_str) if min_val_str else (None, None)
+        max_dist, max_time = self._parse_one(max_val_str) if max_val_str else (None, None)
+
+        return Constraint(min_dist, max_dist, min_time, max_time)
 
 
 class _Price(BaseModel):

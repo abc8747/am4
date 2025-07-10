@@ -9,9 +9,8 @@ from dataclasses import dataclass
 
 import discord
 import orjson
-import pyarrow as pa
+import polars as pl
 from discord.ext import commands
-from pyarrow import csv
 
 from am4.utils.aircraft import Aircraft
 from am4.utils.airport import Airport
@@ -20,7 +19,7 @@ from am4.utils.route import AircraftRoute, Destination, RoutesSearch
 
 from ...config import cfg
 from ..base import BaseCog
-from ..converters import AircraftCvtr, CfgAlgCvtr, ConstraintCvtr, MultiAirportCvtr, TPDCvtr
+from ..converters import AircraftCvtr, CfgAlgCvtr, Constraint, ConstraintCvtr, MultiAirportCvtr, TPDCvtr
 from ..errors import CustomErrHandler
 from ..plots import MPLMap
 from ..utils import (
@@ -54,7 +53,18 @@ HELP_CONSTRAINT = (
     "- if a constraint is given, it'll optimise for max. profit per trip\n"
     "  - by default, it'll be interpreted as distance in kilometres (i.e. `16000` will return routes < 16,000km)\n"
     "  - to constrain by flight time instead, use the `HH:MM`, `1d, HH:MM` or "
-    "[ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#Durations) syntax"
+    ""
+)
+HELP_CONSTRAINT = (
+    "**Constraint**\n"
+    "Defines the search range for distance (km) or flight time (HH:MM, see "
+    "[ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#Durations) syntax).\n"
+    "- `16000`: max distance of 16,000 km\n"
+    "- `8000..16000`: distance between 8,000 and 16,000 km\n"
+    "- `08:00..12:00`: flight time between 8 and 12 hours\n"
+    "- `12:00..`: flight time of at least 12 hours\n"
+    "- `..16000`: same as `16000`\n"
+    "When a constraint is given, routes are sorted by profit per trip. Otherwise, by profit per day."
 )
 
 
@@ -137,10 +147,9 @@ class ButtonHandler(discord.ui.View):
     async def handle_export_csv(self, interaction: discord.Interaction, button: discord.ui.Button):
         button.disabled = True
         await interaction.response.edit_message(view=self)
-        table = pa.Table.from_pydict({k[3:]: v for k, v in self.cols.items() if not (k.startswith("9"))})
-
+        df = pl.DataFrame({k[3:]: v for k, v in self.cols.items() if not (k.startswith("9"))})
         buf = io.BytesIO()
-        csv.write_csv(table, buf)
+        df.write_csv(buf)
         buf.seek(0)
         msg = await interaction.followup.send("Uploading...", wait=True)
         await msg.edit(
@@ -180,12 +189,9 @@ class ButtonHandler(discord.ui.View):
                 hub.profits_per_ac.append(profit_per_day)
 
         loop = asyncio.get_event_loop()
-        im_buffer = await loop.run_in_executor(self.mpl_map_executor, self.mpl_map.plot_hub_comparison, hubs_data)
+        im_buffer = await loop.run_in_executor(self.mpl_map_executor, self.mpl_map._plot_hub_comparison, hubs_data)
 
-        await interaction.followup.send(
-            file=discord.File(im_buffer, filename=f"hub_comparison_{self.file_suffix}.png"),
-            ephemeral=True,
-        )
+        await interaction.followup.send(file=discord.File(im_buffer, filename=f"hub_comparison_{self.file_suffix}.jpg"))
 
 
 @dataclass
@@ -222,7 +228,7 @@ class RoutesCog(BaseCog):
         ctx: commands.Context,
         ap_queries: list[Airport.SearchResult] = commands.parameter(converter=MultiAirportCvtr, description=HELP_AP),
         ac_query: Aircraft.SearchResult = commands.parameter(converter=AircraftCvtr, description=HELP_AC),
-        constraint: tuple[float | None, float | None] = commands.parameter(
+        constraint: Constraint = commands.parameter(
             converter=ConstraintCvtr,
             default=ConstraintCvtr._default,
             displayed_default="NONE",
@@ -240,7 +246,6 @@ class RoutesCog(BaseCog):
     ):
         is_cargo = ac_query.ac.type == Aircraft.Type.CARGO
         tpd, tpd_mode = trips_per_day_per_ac
-        max_distance, max_flight_time = constraint
         cons_set = constraint != ConstraintCvtr._default
         tpd_set = trips_per_day_per_ac != TPDCvtr._default
         options = AircraftRoute.Options(
@@ -250,8 +255,10 @@ class RoutesCog(BaseCog):
                     "trips_per_day_per_ac": tpd,
                     "tpd_mode": tpd_mode,
                     "config_algorithm": config_algorithm,
-                    "max_distance": max_distance,
-                    "max_flight_time": max_flight_time,
+                    "max_distance": constraint.max_distance,
+                    "min_distance": constraint.min_distance,
+                    "max_flight_time": constraint.max_flight_time,
+                    "min_flight_time": constraint.min_flight_time,
                     "sort_by": (
                         AircraftRoute.Options.SortBy.PER_AC_PER_DAY
                         if cons_set
@@ -271,7 +278,9 @@ class RoutesCog(BaseCog):
         # if the tpd is not provided, show generic warning of low tpd
         # otherwise, check if the constraint's equivalent flight time and tpd multiply to be <24 and ~24
         if cons_set:
-            await self.check_constraints(ctx, ac_query, tpd, max_distance, max_flight_time, tpd_set, u.game_mode)
+            await self.check_constraints(
+                ctx, ac_query, tpd, constraint.max_distance, constraint.max_flight_time, tpd_set, u.game_mode
+            )
 
         rs = RoutesSearch([ap.ap for ap in ap_queries], ac_query.ac, options, u)
 
@@ -369,7 +378,7 @@ class RoutesCog(BaseCog):
             if max_distance is not None
             else max_flight_time
         )
-        cons_eq_f = ("equivalent to " if max_distance else "") + f"max `{cons_eq_t:.2f}` hr"
+        cons_eq_f = (f"{max_distance}, equivalent to " if max_distance else "") + f"max `{cons_eq_t:.2f}` hr"
         sugg_cons_t, sugg_tpd = 24 / tpd, math.floor(24 / cons_eq_t)
         if (t_ttl := cons_eq_t * tpd) > 24 and tpd_set:
             embed = discord.Embed(

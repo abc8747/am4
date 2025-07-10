@@ -20,7 +20,6 @@ from ..utils import (
     format_demand,
     format_flight_time,
     format_ticket,
-    format_warning,
     get_realism_departure_runway_warning,
     get_user_colour,
 )
@@ -113,7 +112,7 @@ class RouteCog(BaseCog):
         if not acr.valid:
             embed_w = discord.Embed(
                 title="Route cannot be created.",
-                description="\n".join(f"- {format_warning(w)}" for w in acr.warnings) or "Unknown error.",
+                description="\n".join(f"- {w.to_str()}" for w in acr.warnings) or "Unknown error.",
                 colour=COLOUR_ERROR,
             )
             embed = self.get_basic_route_embed(ap0_query, ap1_query, acr.route)

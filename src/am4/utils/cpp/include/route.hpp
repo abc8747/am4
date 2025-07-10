@@ -49,7 +49,9 @@ struct AircraftRoute {
         TPDMode tpd_mode;
         uint16_t trips_per_day_per_ac;
         double max_distance;
+        double min_distance;
         float max_flight_time;
+        float min_flight_time;
         ConfigAlgorithm config_algorithm;
         SortBy sort_by;
 
@@ -57,7 +59,9 @@ struct AircraftRoute {
             TPDMode tpd_mode = TPDMode::AUTO,
             uint16_t trips_per_day_per_ac = 1,
             double max_distance = MAX_DISTANCE,
+            double min_distance = 0.0,
             float max_flight_time = 24.0f,
+            float min_flight_time = 0.0f,
             ConfigAlgorithm config_algorithm = std::monostate(),
             SortBy sort_by = SortBy::PER_TRIP
         );
@@ -98,11 +102,13 @@ struct AircraftRoute {
     enum class Warning {
         ERR_RWY_TOO_SHORT,
         ERR_DISTANCE_ABOVE_SPECIFIED,
+        ERR_DISTANCE_BELOW_SPECIFIED,
         ERR_DISTANCE_TOO_LONG,
         ERR_DISTANCE_TOO_SHORT,
         REDUCED_CONTRIBUTION,
         ERR_NO_STOPOVER,
         ERR_FLIGHT_TIME_ABOVE_SPECIFIED,
+        ERR_FLIGHT_TIME_BELOW_SPECIFIED,
         ERR_INSUFFICIENT_DEMAND,
         ERR_TRIPS_PER_DAY_TOO_HIGH,
     };

@@ -186,14 +186,18 @@ AircraftRoute::Options::Options(
     TPDMode tpd_mode,
     uint16_t trips_per_day_per_ac,
     double max_distance,
+    double min_distance,
     float max_flight_time,
+    float min_flight_time,
     ConfigAlgorithm config_algorithm,
     SortBy sort_by
 )
     : tpd_mode(tpd_mode),
       trips_per_day_per_ac(trips_per_day_per_ac),
       max_distance(max_distance),
+      min_distance(min_distance),
       max_flight_time(max_flight_time),
+      min_flight_time(min_flight_time),
       config_algorithm(config_algorithm),
       sort_by(sort_by) {
     if (tpd_mode == AircraftRoute::Options::TPDMode::AUTO && trips_per_day_per_ac != 1)
@@ -216,6 +220,9 @@ AircraftRoute AircraftRoute::create(
     if (acr.route.direct_distance > options.max_distance) {
         acr.warnings.push_back(AircraftRoute::Warning::ERR_DISTANCE_ABOVE_SPECIFIED);
         return acr;
+    } else if (acr.route.direct_distance < options.min_distance) {
+        acr.warnings.push_back(AircraftRoute::Warning::ERR_DISTANCE_BELOW_SPECIFIED);
+        return acr;
     } else if (acr.route.direct_distance > 2 * ac.range) {
         acr.warnings.push_back(AircraftRoute::Warning::ERR_DISTANCE_TOO_LONG);
         return acr;
@@ -236,6 +243,9 @@ AircraftRoute AircraftRoute::create(
         static_cast<float>(full_distance) / (ac.speed * (user.game_mode == User::GameMode::EASY ? 1.5f : 1.0f));
     if (acr.flight_time > options.max_flight_time) {
         acr.warnings.push_back(AircraftRoute::Warning::ERR_FLIGHT_TIME_ABOVE_SPECIFIED);
+        return acr;
+    } else if (acr.flight_time < options.min_flight_time) {
+        acr.warnings.push_back(AircraftRoute::Warning::ERR_FLIGHT_TIME_BELOW_SPECIFIED);
         return acr;
     }
     if (options.tpd_mode != Options::TPDMode::AUTO &&
@@ -411,25 +421,29 @@ const string Route::repr(const Route& r) {
 inline const string to_string(const AircraftRoute::Warning& warning) {
     switch (warning) {
         case AircraftRoute::Warning::ERR_RWY_TOO_SHORT:
-            return "ERR_RWY_TOO_SHORT";
+            return "Runway too short";
         case AircraftRoute::Warning::ERR_DISTANCE_ABOVE_SPECIFIED:
-            return "ERR_DISTANCE_ABOVE_SPECIFIED";
+            return "Distance above specified limit";
+        case AircraftRoute::Warning::ERR_DISTANCE_BELOW_SPECIFIED:
+            return "Distance below specified limit";
         case AircraftRoute::Warning::ERR_DISTANCE_TOO_LONG:
-            return "ERR_DISTANCE_TOO_LONG";
+            return "Distance too long";
         case AircraftRoute::Warning::ERR_DISTANCE_TOO_SHORT:
-            return "ERR_DISTANCE_TOO_SHORT";
+            return "Distance too short (<100km)";
         case AircraftRoute::Warning::REDUCED_CONTRIBUTION:
-            return "REDUCED_CONTRIBUTION";
+            return "Reduced contribution (<1000km)";
         case AircraftRoute::Warning::ERR_NO_STOPOVER:
-            return "ERR_NO_STOPOVER";
+            return "No stopovers are possible";
         case AircraftRoute::Warning::ERR_FLIGHT_TIME_ABOVE_SPECIFIED:
-            return "ERR_FLIGHT_TIME_ABOVE_SPECIFIED";
+            return "Flight time above specified limit";
+        case AircraftRoute::Warning::ERR_FLIGHT_TIME_BELOW_SPECIFIED:
+            return "Flight time below specified limit";
         case AircraftRoute::Warning::ERR_INSUFFICIENT_DEMAND:
-            return "ERR_INSUFFICIENT_DEMAND";
+            return "Insufficient demand";
         case AircraftRoute::Warning::ERR_TRIPS_PER_DAY_TOO_HIGH:
-            return "ERR_TRIPS_PER_DAY_TOO_HIGH";
+            return "Trips per day per aircraft is too high for the flight time";
         default:
-            return "[UNKNOWN]";
+            return "Unknown error";
     }
 }
 
@@ -700,16 +714,19 @@ void pybind_init_route(py::module_& m) {
     acr_options_class
         .def(
             py::init<
-                AircraftRoute::Options::TPDMode, uint16_t, double, double, AircraftRoute::Options::ConfigAlgorithm,
-                AircraftRoute::Options::SortBy>(),
+                AircraftRoute::Options::TPDMode, uint16_t, double, double, float, float,
+                AircraftRoute::Options::ConfigAlgorithm, AircraftRoute::Options::SortBy>(),
             py::arg_v("tpd_mode", AircraftRoute::Options::TPDMode::AUTO, "TPDMode.AUTO"), "trips_per_day_per_ac"_a = 1,
-            "max_distance"_a = MAX_DISTANCE, "max_flight_time"_a = 24.0f, "config_algorithm"_a = std::monostate(),
+            "max_distance"_a = MAX_DISTANCE, "min_distance"_a = 0.0, "max_flight_time"_a = 24.0f,
+            "min_flight_time"_a = 0.0f, "config_algorithm"_a = std::monostate(),
             py::arg_v("sort_by", AircraftRoute::Options::SortBy::PER_TRIP, "SortBy.PER_TRIP")
         )
         .def_readwrite("tpd_mode", &AircraftRoute::Options::tpd_mode)
         .def_readwrite("trips_per_day_per_ac", &AircraftRoute::Options::trips_per_day_per_ac)
         .def_readwrite("max_distance", &AircraftRoute::Options::max_distance)
+        .def_readwrite("min_distance", &AircraftRoute::Options::min_distance)
         .def_readwrite("max_flight_time", &AircraftRoute::Options::max_flight_time)
+        .def_readwrite("min_flight_time", &AircraftRoute::Options::min_flight_time)
         .def_readwrite("config_algorithm", &AircraftRoute::Options::config_algorithm)
         .def_readwrite("sort_by", &AircraftRoute::Options::sort_by);
 
@@ -727,13 +744,16 @@ void pybind_init_route(py::module_& m) {
     py::enum_<AircraftRoute::Warning>(acr_class, "Warning")
         .value("ERR_RWY_TOO_SHORT", AircraftRoute::Warning::ERR_RWY_TOO_SHORT)
         .value("ERR_DISTANCE_ABOVE_SPECIFIED", AircraftRoute::Warning::ERR_DISTANCE_ABOVE_SPECIFIED)
+        .value("ERR_DISTANCE_BELOW_SPECIFIED", AircraftRoute::Warning::ERR_DISTANCE_BELOW_SPECIFIED)
         .value("ERR_DISTANCE_TOO_LONG", AircraftRoute::Warning::ERR_DISTANCE_TOO_LONG)
         .value("ERR_DISTANCE_TOO_SHORT", AircraftRoute::Warning::ERR_DISTANCE_TOO_SHORT)
         .value("REDUCED_CONTRIBUTION", AircraftRoute::Warning::REDUCED_CONTRIBUTION)
         .value("ERR_NO_STOPOVER", AircraftRoute::Warning::ERR_NO_STOPOVER)
         .value("ERR_FLIGHT_TIME_ABOVE_SPECIFIED", AircraftRoute::Warning::ERR_FLIGHT_TIME_ABOVE_SPECIFIED)
+        .value("ERR_FLIGHT_TIME_BELOW_SPECIFIED", AircraftRoute::Warning::ERR_FLIGHT_TIME_BELOW_SPECIFIED)
         .value("ERR_INSUFFICIENT_DEMAND", AircraftRoute::Warning::ERR_INSUFFICIENT_DEMAND)
-        .value("ERR_TRIPS_PER_DAY_TOO_HIGH", AircraftRoute::Warning::ERR_TRIPS_PER_DAY_TOO_HIGH);
+        .value("ERR_TRIPS_PER_DAY_TOO_HIGH", AircraftRoute::Warning::ERR_TRIPS_PER_DAY_TOO_HIGH)
+        .def("to_str", py::overload_cast<const AircraftRoute::Warning&>(&to_string));
 
     acr_class.def_readonly("route", &AircraftRoute::route)
         .def_readonly("config", &AircraftRoute::config)
