@@ -109,7 +109,10 @@ class CustomErrHandler:
             buf = io.StringIO()
             console = Console(file=buf)
             if self.error is not None:
-                console.print_exception(show_locals=True, max_frames=0)
+                try:
+                    raise self.error
+                except commands.CommandError:
+                    console.print_exception(show_locals=True, max_frames=0)
 
             # inspect(self.ctx, console=console)
             buf.seek(0)
@@ -127,11 +130,13 @@ class CustomErrHandler:
         emb = discord.Embed(title=title, description=description, colour=COLOUR_ERROR)
         if suggs is not None:
             if len(suggs) > 1:
-                emb.add_field(name="Did you mean:", value="\n".join(f"- {desc}" for _k, desc in suggs), inline=False)
+                emb.add_field(
+                    name="note: similar items found:", value="\n".join(f"- {desc}" for _k, desc in suggs), inline=False
+                )
             if not sugg_cmd_override:
                 v = self.ctx.view
                 emb.add_field(
-                    name="Suggested commands:",
+                    name="help: try one of the following commands:",
                     value=(
                         "```php\n"
                         f"{cfg.bot.COMMAND_PREFIX}help {self.cmd}\n"
@@ -142,7 +147,7 @@ class CustomErrHandler:
                 )
         if sugg_cmd_override:
             emb.add_field(
-                name="Suggested Commands:",
+                name="help: try one of the following commands",
                 value="```php\n" + "\n".join(sugg_cmd_override) + "```",
             )
         return emb
@@ -154,12 +159,17 @@ class CustomErrHandler:
         suggs = Aircraft.suggest(acsr.parse_result)
 
         extra = f" using search mode `{st}`" if (st := acsr.parse_result.search_type) != Aircraft.SearchType.ALL else ""
-        extra_mod = "You might also want to check the engine modifiers." if "[" in self.ctx.current_argument else ""
         embed = self._get_err_embed(
-            title=f"Aircraft `{self.ctx.current_argument}` not found{extra}!",
-            description=f"{self.err_tb}{extra_mod}",
+            title=f"aircraft `{self.ctx.current_argument}` not found{extra}",
+            description=f"{self.err_tb}",
             suggs=[(a.ac.shortname, f"`{a.ac.shortname}` ({a.ac.name})") for a in suggs],
         )
+        if "[" in self.ctx.current_argument:
+            embed.add_field(
+                name="note: engine or other modifiers were detected",
+                value="Ensure the correct modifiers are applied (e.g., `[sfc]`).",
+                inline=False,
+            )
         await self.ctx.send(embed=embed)
         self.handled = True
 
@@ -174,8 +184,9 @@ class CustomErrHandler:
         if route_typo:
             acsr = Aircraft.search(self.ctx.current_argument)
             if acsr.ac.valid:
-                typo_help = f"`{self.ctx.current_argument}` is an aircraft. "
-            typo_help += "You are currently using the `route` command. Maybe you meant to use the `routes` command?"
+                typo_help = f"note: `{self.ctx.current_argument}` is an aircraft, not an airport.\n"
+            typo_help += "note: the `route` command finds a single route. For searching multiple routes, "
+            typo_help += "use the `routes` command."
         embed = self._get_err_embed(
             title=f"Airport `{self.ctx.current_argument}` not found{extra}!",
             description=self.err_tb + typo_help,
@@ -236,9 +247,9 @@ class CustomErrHandler:
             return
         as_time = self.error.err.errors()[0]["type"] == "time_delta_parsing"
         extra = (
-            "**Tip**: I'm assuming the constraint is by time: correct it using `HH:MM`."
+            "note: time constraints must be in `HH:MM` format."
             if as_time
-            else "**Tip**: I'm assuming the constraint is by distance: if you'd like to use time instead, use `HH:MM`."
+            else "note: to constrain by time instead of distance, use `HH:MM` format."
         )
         embed = self._get_err_embed(
             title="Invalid constraint!",
@@ -284,9 +295,7 @@ class CustomErrHandler:
         await self.ctx.send(
             embed=self._get_err_embed(
                 title="Too many arguments!",
-                description=(
-                    f'{err_loc}Tip: If you are trying to use spaces in the {arg_name}, wrap it in double quotes (`"`).'
-                ),
+                description=(f'{err_loc}note: to include spaces in the {arg_name}, wrap it in double quotes (`"`).'),
                 sugg_cmd_override=cmds,
             )
         )
@@ -319,8 +328,8 @@ class CustomErrHandler:
         cp = self.ctx.current_parameter
         await self.ctx.send(
             embed=self._get_err_embed(
-                title="Missing required argument!",
-                description=(f"{self.err_tb}I expected the `{cp.name}` argument.\n"),
+                title="Missing required argument",
+                description=(f"{self.err_tb}the required argument `{cp.name}` is missing.\n"),
                 sugg_cmd_override=[f"{cfg.bot.COMMAND_PREFIX}help {self.cmd}", f"{pre} <{cp.name}>"],
             )
         )
@@ -332,8 +341,8 @@ class CustomErrHandler:
         v = self.ctx.view
         await self.ctx.send(
             embed=self._get_err_embed(
-                title="Missing closing quote!",
-                description=f"{self.err_tb}You forgot to close the quote here.",
+                title="Missing closing quote",
+                description=f"{self.err_tb}An unclosed quote was found.",
                 sugg_cmd_override=[f'{v.buffer[: v.index]}"{v.buffer[v.index :]}'],
             )
         )
@@ -345,8 +354,8 @@ class CustomErrHandler:
         v = self.ctx.view
         await self.ctx.send(
             embed=self._get_err_embed(
-                title="Invalid end of quoted string!",
-                description=f"{self.err_tb}You can't have anything after this closing quote.",
+                title="Invalid end of quoted string",
+                description=f"{self.err_tb}Unexpected characters found after a closing quote.",
                 sugg_cmd_override=[f"{v.buffer[: v.index]}"],
             )
         )
@@ -358,8 +367,8 @@ class CustomErrHandler:
         v = self.ctx.view
         await self.ctx.send(
             embed=self._get_err_embed(
-                title="Unexpected quote!",
-                description=f"{self.err_tb}You can't have a quote after this character.",
+                title="Unexpected quote",
+                description=f"{self.err_tb}A quote was found in an invalid position.",
                 sugg_cmd_override=[f"{v.buffer[: v.index]}{v.buffer[v.index + 1 :]}"],
             )
         )
@@ -398,14 +407,18 @@ class CustomErrHandler:
             heapq.heappush(top_keys, (jaro_winkler_distance(command, c.name), c.name))
         suggs = [k for _, k in heapq.nlargest(3, top_keys)]
 
-        await self.ctx.send(
-            embed=self._get_err_embed(
-                title=f"`{command}` is not a valid command!",
-                description=f"{self.err_tb}Check `{cfg.bot.COMMAND_PREFIX}help` to list all commands.",
-                suggs=[("", f"`{cfg.bot.COMMAND_PREFIX}{s}`") for s in suggs],
-                sugg_cmd_override=[f"{cfg.bot.COMMAND_PREFIX}help"],
-            )
+        embed = self._get_err_embed(
+            title=f"command `{command}` not found",
+            description=self.err_tb,
+            suggs=[(s, f"`{cfg.bot.COMMAND_PREFIX}{s}`") for s in suggs],
+            sugg_cmd_override=[f"{cfg.bot.COMMAND_PREFIX}help"],
         )
+        embed.add_field(
+            name="note: a list of all available commands can be found by running:",
+            value=f"```{cfg.bot.COMMAND_PREFIX}help```",
+            inline=False,
+        )
+        await self.ctx.send(embed=embed)
         self.handled = True
 
     async def common_mistakes(self):

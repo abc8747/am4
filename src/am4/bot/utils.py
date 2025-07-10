@@ -114,22 +114,27 @@ async def fetch_user_info(ctx: commands.Context) -> tuple[User, UserExtra]:
 
 
 def get_realism_departure_runway_warning(ac: Aircraft, aps: Sequence[Airport]) -> discord.Embed | None:
-    details = [f"`{ap.iata}` ({ap.name}, {ap.country}) has runway length `{ap.rwy}`ft" for ap in aps if ap.rwy < ac.rwy]
+    details = [f"`{ap.iata}` ({ap.name}) has runway `{ap.rwy}`ft" for ap in aps if ap.rwy < ac.rwy]
     if not details:
         return None
-    detail_str = (
-        ("departing airports:\n" + "\n".join(f"- {d}" for d in details))
-        if len(details) > 1
-        else f"departing airport {details[0]}"
-    )
+
+    detail_str = "\n".join(f"- {d}" for d in details)
+
     embed = discord.Embed(
-        title="Warning: Departing airport restriction",
+        title="Warning: Runway length insufficient for departure",
         description=(
-            f"Aircraft `{ac.name}` requires a runway of at least `{ac.rwy}`ft, but {detail_str}."
-            + f"\nThis means any of your existing `{ac.name}` will not be able to land at, or be "
-            + "relocated to these airports. You must order new aircraft to create new routes."
+            f"Aircraft `{ac.name}` requires a runway of at least `{ac.rwy}`ft.\n"
+            f"The following departure airports do not meet this requirement:\n{detail_str}"
         ),
         colour=COLOUR_WARNING,
+    )
+    embed.add_field(
+        name="note: this is a realism mode restriction",
+        value=(
+            "Existing aircraft of this type cannot be relocated to these airports. "
+            "New routes from these airports must be created with newly purchased aircraft."
+        ),
+        inline=False,
     )
     return embed
 

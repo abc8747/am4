@@ -89,7 +89,7 @@ class SettingValueCvtr(commands.Converter):
             u_new = model.__pydantic_validator__.validate_assignment(model.model_construct(), key, value)
         except ValidationError as err:
             if key == "load" or key == "cargo_load":
-                err.errors()[0]["msg"] += " Load factor is a percentage: if you want to set say 87%, use `87%`."
+                err.errors()[0]["msg"] += ". Load factor must be a percentage (e.g., `87%`)."
             raise SettingValueValidationError(err)
         v_new = getattr(u_new, key)
         return v_new

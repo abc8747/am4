@@ -68,11 +68,12 @@ class HelpCog(BaseCog):
         if cmd is None:
             await ctx.send(
                 embed=discord.Embed(
-                    title="Command does not exist!",
+                    title=f"Command `{command}` does not exist",
                     description="To show all commands, use `$help`.",
                     colour=COLOUR_ERROR,
                 )
             )
+            return
         for sc in subcommands:
             cmd = cmd.get_command(sc)
             if cmd is None:

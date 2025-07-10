@@ -112,7 +112,7 @@ class RouteCog(BaseCog):
         acr = AircraftRoute.create(ap0_query.ap, ap1_query.ap, ac_query.ac, options, u)
         if not acr.valid:
             embed_w = discord.Embed(
-                title="Error: Invalid Route.",
+                title="Route cannot be created.",
                 description="\n".join(f"- {format_warning(w)}" for w in acr.warnings) or "Unknown error.",
                 colour=COLOUR_ERROR,
             )

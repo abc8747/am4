@@ -1,8 +1,11 @@
+from __future__ import annotations
+
 import asyncio
 import io
 import math
 import time
 from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
+from dataclasses import dataclass
 
 import discord
 import orjson
@@ -88,6 +91,8 @@ class ButtonHandler(discord.ui.View):
         is_cargo: bool,
         file_suffix: str,
         user: User,
+        mpl_map: MPLMap,
+        mpl_map_executor: ProcessPoolExecutor,
     ):
         super().__init__(timeout=15)
         self.message = message
@@ -96,12 +101,17 @@ class ButtonHandler(discord.ui.View):
 
         if len(destinations) <= 3:
             self.handle_show_more.disabled = True
+        if not is_multi_hub:
+            self.remove_item(self.handle_compare_hubs)
+
         self.is_multi_hub = is_multi_hub
         self.destinations = destinations
         self.cols = cols
         self.is_cargo = is_cargo
         self.file_suffix = file_suffix
         self.user = user
+        self.mpl_map = mpl_map
+        self.mpl_map_executor = mpl_map_executor
 
     async def on_timeout(self) -> None:
         self.clear_items()
@@ -151,6 +161,37 @@ class ButtonHandler(discord.ui.View):
             attachments=[discord.File(buf, filename=f"routes_{self.file_suffix}.json")],
         )
         buf.close()
+
+    @discord.ui.button(label="Compare Hubs", style=discord.ButtonStyle.secondary)
+    async def handle_compare_hubs(self, interaction: discord.Interaction, button: discord.ui.Button):
+        button.disabled = True
+        await interaction.response.edit_message(view=self)
+
+        hubs_data: dict[str, HubProfitData] = {}
+        for d in self.destinations:
+            origin_iata = d.origin.iata
+            hub = hubs_data.setdefault(
+                origin_iata,
+                HubProfitData(profits_per_ac=[], hub_cost=d.origin.hub_cost),
+            )
+
+            profit_per_day = d.ac_route.profit * d.ac_route.trips_per_day_per_ac
+            for _ in range(d.ac_route.num_ac):
+                hub.profits_per_ac.append(profit_per_day)
+
+        loop = asyncio.get_event_loop()
+        im_buffer = await loop.run_in_executor(self.mpl_map_executor, self.mpl_map.plot_hub_comparison, hubs_data)
+
+        await interaction.followup.send(
+            file=discord.File(im_buffer, filename=f"hub_comparison_{self.file_suffix}.png"),
+            ephemeral=True,
+        )
+
+
+@dataclass
+class HubProfitData:
+    profits_per_ac: list[float]
+    hub_cost: float
 
 
 class RoutesCog(BaseCog):
@@ -287,7 +328,15 @@ class RoutesCog(BaseCog):
             ]
         )
         btns = ButtonHandler(
-            msg, is_multi_hub, destinations, cols, ac_query.ac.type == Aircraft.Type.CARGO, file_suffix, u
+            msg,
+            is_multi_hub,
+            destinations,
+            cols,
+            ac_query.ac.type == Aircraft.Type.CARGO,
+            file_suffix,
+            u,
+            self.mpl_map,
+            self.mpl_map_executor,
         )
         await msg.edit(view=btns)
 
@@ -323,52 +372,64 @@ class RoutesCog(BaseCog):
         cons_eq_f = ("equivalent to " if max_distance else "") + f"max `{cons_eq_t:.2f}` hr"
         sugg_cons_t, sugg_tpd = 24 / tpd, math.floor(24 / cons_eq_t)
         if (t_ttl := cons_eq_t * tpd) > 24 and tpd_set:
-            await ctx.send(
-                embed=discord.Embed(
-                    title="Warning: Over-constrained!",
-                    description=(
-                        f"You have provided a constraint ({cons_eq_f}) and trips per day per A/C (`{tpd}`).\n"
-                        f"But it is impossible to fly `{t_ttl:.2f}` hr in a day.\n"
-                        f"I'll still respect your choice of `{tpd}` trips per day per A/C, but do note that the "
-                        "suggested routes **may require you to depart very frequently**.\n\n"
-                        f"To fix this, reduce your trips per day per A/C to `{sugg_tpd:.0f}`, or "
-                        f"reduce your constraint to `{format_flight_time(sugg_cons_t, short=True)}` "
-                        f"(`{ac_query.ac.speed * sugg_cons_t:.0f}` km)."
-                    ),
-                    color=COLOUR_WARNING,
-                )
+            embed = discord.Embed(
+                title="Warning: Impossible schedule",
+                description=(
+                    f"The provided constraint ({cons_eq_f}) and trips per day (`{tpd}`) require a total flight time "
+                    f"of `{t_ttl:.2f}` hours, which exceeds 24 hours.\n"
+                    f"Routes will still respect the `{tpd}` trips per day constraint, but will "
+                    "require very frequent departures."
+                ),
+                color=COLOUR_WARNING,
             )
+            embed.add_field(
+                name="help: to create a valid 24-hour schedule, try one of the following:",
+                value=(
+                    f"- reduce trips per day to `{sugg_tpd:.0f}`\n"
+                    f"- reduce the constraint to `{format_flight_time(sugg_cons_t, short=True)}` "
+                    f"(approx. `{ac_query.ac.speed * sugg_cons_t:.0f}` km)"
+                ),
+                inline=False,
+            )
+            await ctx.send(embed=embed)
         elif t_ttl < 24 * 0.9 and tpd_set:
-            sugg_tpd_f = f"increase your trips per day per A/C to `{sugg_tpd:.0f}`, or " if sugg_tpd != tpd else ""
-            await ctx.send(
-                embed=discord.Embed(
-                    title="Warning: Under-constrained!",
-                    description=(
-                        f"You have provided a constraint ({cons_eq_f}) and trips per day per A/C (`{tpd}`), "
-                        f"meaning the average aircraft flies `{t_ttl:.2f}` hr in a day.\n"
-                        "The profit per day per aircraft will be lower than the theoretical optimum.\n\n"
-                        f"To fix this, {sugg_tpd_f}"
-                        f"increase your constraint to `{format_flight_time(sugg_cons_t, short=True)}` "
-                        f"(`{ac_query.ac.speed * sugg_cons_t:.0f}` km)."
-                    ),
-                    color=COLOUR_WARNING,
-                )
+            embed = discord.Embed(
+                title="Warning: Inefficient schedule",
+                description=(
+                    f"The provided constraint ({cons_eq_f}) and trips per day (`{tpd}`) result in a total flight time "
+                    f"of `{t_ttl:.2f}` hours, which underutilizes the aircraft."
+                ),
+                color=COLOUR_WARNING,
             )
-
+            sugg_tpd_f = f"- increase trips per day to `{sugg_tpd:.0f}`\n" if sugg_tpd != tpd else ""
+            embed.add_field(
+                name="help: to maximize daily profit, consider one of the following",
+                value=(
+                    f"{sugg_tpd_f}"
+                    f"- increase the constraint to `{format_flight_time(sugg_cons_t, short=True)}` "
+                    f"(approx. `{ac_query.ac.speed * sugg_cons_t:.0f}` km)"
+                ),
+                inline=False,
+            )
+            await ctx.send(embed=embed)
         if not tpd_set:
-            await ctx.send(
-                embed=discord.Embed(
-                    title="Warning: Very short routes incoming!",
-                    description=(
-                        f"You have set a constraint ({cons_eq_f}), but did not set the trips per day per A/C.\n\n"
-                        "I'll be sorting the routes by *max profit per day per A/C*, which will very likely "
-                        "to be **extremely short routes**. You may not actually be able to depart that frequently, "
-                        f"so I'd suggest you to specify the trips per day per aircraft (recommended: `{sugg_tpd}`)."
-                        f"\n\nTip: Look at the tradeoff in the bottom right graph."
-                    ),
-                    color=COLOUR_WARNING,
-                )
+            embed = discord.Embed(
+                title="note: sorting by profit per day",
+                description=(
+                    f"A constraint ({cons_eq_f}) was provided without a specific number of trips per day.\n"
+                    "Routes will be sorted by maximum profit per day, "
+                    "which favors very short routes with high frequency."
+                ),
+                color=COLOUR_WARNING,
             )
+            embed.add_field(
+                name="help: for more realistic schedules, specify the number of trips per day",
+                value=(
+                    f"based on your constraint, a schedule of `{sugg_tpd}` trips per day would maximize flight hours."
+                ),
+                inline=False,
+            )
+            await ctx.send(embed=embed)
 
     @routes.error
     async def route_error(self, ctx: commands.Context, error: commands.CommandError):
