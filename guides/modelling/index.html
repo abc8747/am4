@@ -1,0 +1,1731 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Discord bot and various utilities for the game Airline Manager 4.">
+      
+      
+      
+        <link rel="canonical" href="https://abc8747.github.io/am4/guides/modelling/">
+      
+      
+        <link rel="prev" href="../preface/">
+      
+      
+        <link rel="next" href="../configuration/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
+    
+    
+      
+        <title>Mathematical Modelling - am4</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../assets/css/main.css">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+      
+        <meta  property="og:type"  content="website" >
+      
+        <meta  property="og:title"  content="Mathematical Modelling - am4" >
+      
+        <meta  property="og:description"  content="Discord bot and various utilities for the game Airline Manager 4." >
+      
+        <meta  property="og:image"  content="https://abc8747.github.io/am4/assets/images/social/guides/modelling.png" >
+      
+        <meta  property="og:image:type"  content="image/png" >
+      
+        <meta  property="og:image:width"  content="1200" >
+      
+        <meta  property="og:image:height"  content="630" >
+      
+        <meta  property="og:url"  content="https://abc8747.github.io/am4/guides/modelling/" >
+      
+        <meta  name="twitter:card"  content="summary_large_image" >
+      
+        <meta  name="twitter:title"  content="Mathematical Modelling - am4" >
+      
+        <meta  name="twitter:description"  content="Discord bot and various utilities for the game Airline Manager 4." >
+      
+        <meta  name="twitter:image"  content="https://abc8747.github.io/am4/assets/images/social/guides/modelling.png" >
+      
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#easy" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="am4" class="md-header__button md-logo" aria-label="am4" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            am4
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Mathematical Modelling
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/abc8747/am4" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abc8747/am4
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="am4" class="md-nav__button md-logo" aria-label="am4" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    am4
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/abc8747/am4" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abc8747/am4
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Development
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Quickstart
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Core
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/web-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Web API
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/discord-bot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Discord Bot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Guide
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Preface
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Mathematical Modelling
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Mathematical Modelling
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#easy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Easy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Easy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#slope-m" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slope \(m\)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#y-intercept-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      Y-intercept \(c\)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Useful operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intermediate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Intermediate
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Intermediate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      Regression
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Regression">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#matrices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Matrices
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inverse" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inverse
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#normal-equation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Normal equation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiple-linear-regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiple Linear Regression
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Aircraft Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contribution Strategy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demand/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Demand
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../formulae/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Formulae
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Core
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Core
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/utils/aircraft/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Aircraft
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/utils/airport/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Airport
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/utils/demand/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Demand
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/utils/route/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Route
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/utils/ticket/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Ticket
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/utils/game/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Game
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/web-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Web API
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/db/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Database
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/bot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TOS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#easy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Easy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Easy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#slope-m" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slope \(m\)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#y-intercept-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      Y-intercept \(c\)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Useful operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intermediate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Intermediate
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Intermediate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      Regression
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Regression">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#matrices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Matrices
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inverse" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inverse
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#normal-equation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Normal equation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiple-linear-regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiple Linear Regression
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>Mathematical Modelling</h1>
+
+<blockquote>
+<p>"The purpose of computing is insight, not numbers." <em>-- Richard Hamming</em></p>
+</blockquote>
+<p>From orbiting planets to subatomic particles, equations have the power to describe and explain many phenomena we experience daily.</p>
+<p>As we gaze up at the skies, it's easy to take for granted the intricate dance of physics, economics, and business that makes modern air travel possible. But beneath the surface, a complex web of equations governs every aspect of aviation: from the <a href="https://en.wikipedia.org/wiki/Kutta%E2%80%93Joukowski_theorem">lift and drag</a> that propel planes through the air, to the delicate balance of <a href="https://en.wikipedia.org/wiki/Yield_management">supply and demand that determines ticket prices</a>, and the <a href="https://en.wikipedia.org/wiki/Braess%27s_paradox">air traffic management techniques</a> that minimise flight delays. Yet, despite this complexity, there's beauty in the underlying simplicity of the equations that govern it all.</p>
+<p>Of course, AM4 is a massive simplification governed by very simple equations - this guide aims to familiarise you with:</p>
+<ul>
+<li>understanding the concept of linear equations</li>
+<li>using regression models to build theories</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Experimental</p>
+<p>This guide is a preview and not finalised!</p>
+</div>
+<h2 id="easy">Easy<a class="headerlink" href="#easy" title="Permanent link">¤</a></h2>
+<p>We know that ticket prices are typically more expensive for longer routes. But how can we write that as an equation?</p>
+<p>There are many ways to write it down, but the simplest way is a <em>linear</em> equation, in the form:
+$$
+y = mx + c
+$$
+here, <span class="arithmatex">\(y\)</span> is called the <strong>dependent variable</strong> and <span class="arithmatex">\(x\)</span> is called the <strong>independent variable</strong>. <span class="arithmatex">\(m\)</span> and <span class="arithmatex">\(c\)</span> are <strong>parameters</strong> that we hope to estimate, based on the data we collected.</p>
+<p>Multiplying the distance <span class="arithmatex">\(x\)</span> by some number <span class="arithmatex">\(m\)</span> and adding some number <span class="arithmatex">\(c\)</span> will give us ticket price <span class="arithmatex">\(y\)</span>.</p>
+<p>Here is what it looks like - try dragging the two dots!</p>
+<iframe src="https://www.desmos.com/calculator/dg3cur8f65?embed" width="100%" height="300" frameborder=0></iframe>
+
+<p>Some observations:</p>
+<ul>
+<li>If we <em>know</em> the positions of the red and blue dots, namely <span class="arithmatex">\((x_1, y_1)\)</span> and <span class="arithmatex">\((x_2, y_2)\)</span>, it would "lock in" to the singular black line.</li>
+<li>Clicking on any point in the black line will tell us the ticket price <span class="arithmatex">\(y\)</span> for that distance <span class="arithmatex">\(x\)</span>.</li>
+<li>Moving the points changes <span class="arithmatex">\(m\)</span> and <span class="arithmatex">\(c\)</span>: for instance, moving blue dot upwards will increase <span class="arithmatex">\(m\)</span> and decrease <span class="arithmatex">\(c\)</span>.</li>
+</ul>
+<p>But how are <span class="arithmatex">\(m\)</span> and <span class="arithmatex">\(c\)</span> calculated, and what do they mean?</p>
+<h3 id="slope-m">Slope <span class="arithmatex">\(m\)</span><a class="headerlink" href="#slope-m" title="Permanent link">¤</a></h3>
+<p>Imagine the line as a hill: <span class="arithmatex">\(m\)</span> describes how steep that slope is.</p>
+<p>For example, <span class="arithmatex">\(m=2\)</span> means, if you move 1 step to the right, you will ascend 2 steps upwards.</p>
+<p>Mathematically, we express slope as:</p>
+<div class="arithmatex">\[
+m = \frac{\text{rise}}{\text{run}} = \frac{\text{2 steps }\uparrow}{\text{1 step }\rightarrow} = 2
+\]</div>
+<p>rise meaning the change in height <span class="arithmatex">\(\Delta y\)</span> and run meaning change in lateral distance <span class="arithmatex">\(\Delta x\)</span>.</p>
+<details class="question">
+<summary>Exercise 1: At a distance of 1000km, the ticket price is <span class="arithmatex">\(\$570\)</span>. At a distance of 2000km, the ticket price is <span class="arithmatex">\(\$970\)</span>. What is the slope <span class="arithmatex">\(m\)</span>?</summary>
+<p>The horizontal direction is distance <span class="arithmatex">\(x\)</span>, vertical direction is ticket price <span class="arithmatex">\(y\)</span>.</p>
+<p>Slope is how much we ascended (rise, <span class="arithmatex">\(\Delta y\)</span>) divided by how much we moved horizontally (run <span class="arithmatex">\(\Delta x\)</span>):</p>
+<div class="arithmatex">\[
+m = \frac{\text{rise}}{\text{run}} = \frac{970 - 570}{2000 - 1000} = \frac{400}{1000} = 0.4.
+\]</div>
+<p>The unit for <span class="arithmatex">\(m\)</span> is dollars per km.</p>
+</details>
+<p>Intuitively, steeper slopes define how rapidly ticket prices change with a step in distances, which is why it is also commonly referred as the <strong>rate of change</strong> or the <a href="https://en.wikipedia.org/wiki/Derivative"><strong>derivative</strong></a>.</p>
+<h3 id="y-intercept-c">Y-intercept <span class="arithmatex">\(c\)</span><a class="headerlink" href="#y-intercept-c" title="Permanent link">¤</a></h3>
+<p>The black line extends across all distances <span class="arithmatex">\(x\)</span>, and when it arrives at zero distance, the ticket price at that point is called the y-intercept.</p>
+<p>For example, <span class="arithmatex">\(c = 0\)</span> means the ticket price <span class="arithmatex">\(y\)</span> is <span class="arithmatex">\(\$0\)</span> when the route distance <span class="arithmatex">\(x\)</span> is 0 km.</p>
+<p>To compute this, we need the generic formula <span class="arithmatex">\(y=mx+c\)</span>, a known slope <span class="arithmatex">\(m\)</span> and a set of points <span class="arithmatex">\((x_0, y_0)\)</span>. Rearranging, we get:
+$$
+c = y_0 - mx_0
+$$</p>
+<details class="question">
+<summary>Exercise 2: Continuing on Exercise 1, what is the y-intercept <span class="arithmatex">\(c\)</span>?</summary>
+<p>We know the slope <span class="arithmatex">\(m=0.4\)</span>, and select one point <span class="arithmatex">\((1000\text{ km}, \$570)\)</span>.</p>
+<div class="arithmatex">\[
+c = 570 - 0.4 \times 1000 = 170
+\]</div>
+<p>This means, at a distance of 0km, passengers will have to pay $170.</p>
+</details>
+<p>Intuitively, if we are at an initial elevation <span class="arithmatex">\(y_0\)</span> and descend the slope by moving left <span class="arithmatex">\(\leftarrow\)</span> by <span class="arithmatex">\(x_0\)</span>, we arrive at the y-intercept.</p>
+<h3 id="useful-operations">Useful operations<a class="headerlink" href="#useful-operations" title="Permanent link">¤</a></h3>
+<p>Generally, as long as we have two data points, we can always find <span class="arithmatex">\(m\)</span> and <span class="arithmatex">\(c\)</span>.</p>
+<p>We found them in Exercises 1 and 2, which <em>transforms</em> distance <span class="arithmatex">\(x\)</span> to ticket price <span class="arithmatex">\(y\)</span>.</p>
+<div class="arithmatex">\[
+y=0.4x+170
+\]</div>
+<p>But we can also do the <strong>inverse</strong>, transforming ticket price <span class="arithmatex">\(y\)</span> back into distance <span class="arithmatex">\(x\)</span>.</p>
+<details class="question">
+<summary>Exercise 3: Using the equation above, find the distance when the ticket price is <span class="arithmatex">\(\$6900\)</span>.</summary>
+<p>Rearranging and substituting <span class="arithmatex">\(y=6900\)</span>:</p>
+<div class="arithmatex">\[
+\begin{align*}
+y &amp;= 0.4x + 170 \\
+y - 170 &amp;= 0.4x \\
+x &amp;= \frac{y - 170}{0.4} = \frac{6730}{0.4} = 16825\text{ km}
+\end{align*}
+\]</div>
+</details>
+<p>Let's try another practice:</p>
+<details class="question">
+<summary>Exercise 4: I gathered some data on business class ticket prices. When the distance is 1300km, the ticket price is <span class="arithmatex">\(\$1600\)</span>. When the distance is 4200km, the ticket price is <span class="arithmatex">\(\$3920\)</span>. What is the distance I need to fly for a ticket price of <span class="arithmatex">\(\$10000\)</span>?</summary>
+<p>We are given two points: (1000, 1600) and (4200, 3920).</p>
+<p>The equation <span class="arithmatex">\(y=mx+c\)</span> needs <span class="arithmatex">\(m\)</span> and <span class="arithmatex">\(c\)</span> to be found:</p>
+<div class="arithmatex">\[
+\begin{align*}
+    m &amp;= \frac{y_2-y_1}{x_2-x_1} \\
+    &amp;= \frac{3920 - 1600}{4200 - 1300} \\
+    &amp;= 2320/2900 = 0.8
+\end{align*}
+\]</div>
+<div class="arithmatex">\[
+\begin{align*}
+    c &amp;= y_0 - mx_0 \\
+    &amp;= 1600 - 0.8 \times 1300 = 560
+\end{align*}
+\]</div>
+<p>So the equation is <span class="arithmatex">\(y=0.8x+560\)</span> and we need to rearrange to solve x:</p>
+<div class="arithmatex">\[
+x = \frac{y-560}{0.8} = \frac{10000-560}{0.8} = 11800\text{ km}
+\]</div>
+<p>Notice that the slope <span class="arithmatex">\(0.8\)</span> is twice the economy class of <span class="arithmatex">\(0.4\)</span>, suggesting that the business class ticket prices grow twice as fast as economy classes!</p>
+</details>
+<details class="question">
+<summary>Exercise 5: We've found the economy and business class ticket price equations in Exercises 2 and 4. But consider: 1 business class takes up 2 economy class tickets. Which gives more profit per 'space'?</summary>
+<p>Dividing the business class ticket price by 2:</p>
+<div class="arithmatex">\[
+\begin{align*}
+    y_{\text{economy}} &amp;= 0.4x+170 \\
+    y_{\text{business}} &amp;= \frac{0.8x+560}{2} = 0.4x+280
+\end{align*}
+\]</div>
+<p>Here, the slope <span class="arithmatex">\(m\)</span> of the economy and business class ticket prices are both <span class="arithmatex">\(0.4\)</span> - meaning they grow at the same rate.</p>
+<p>The difference lies in the y-intercept <span class="arithmatex">\(c\)</span>: at a distance of zero, business class pays <span class="arithmatex">\(\$280\)</span> while economy class pays <span class="arithmatex">\(\$170\)</span>. So business class will always overperform economy class.</p>
+</details>
+<h3 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">¤</a></h3>
+<ul>
+<li>A linear function <span class="arithmatex">\(y=mx+c\)</span> describes the relationship between <span class="arithmatex">\(y\)</span> and <span class="arithmatex">\(x\)</span></li>
+<li>slope <span class="arithmatex">\(m\)</span> and y-intercept <span class="arithmatex">\(c\)</span> are calculated from two points, <span class="arithmatex">\((x_0, y_0)\)</span> and <span class="arithmatex">\((x_1, y_1)\)</span>:<ul>
+<li><span class="arithmatex">\(m = \frac{\text{rise}}{\text{run}} = \frac{y_1-y_0}{x_1-x_0}\)</span> describes the rate of change of the slope</li>
+<li><span class="arithmatex">\(c = y_0-mx_0\)</span> is the value <span class="arithmatex">\(y\)</span> when <span class="arithmatex">\(x=0\)</span></li>
+</ul>
+</li>
+</ul>
+<h2 id="intermediate">Intermediate<a class="headerlink" href="#intermediate" title="Permanent link">¤</a></h2>
+<p>In the previous section, we know a linear equation can be written in the form <span class="arithmatex">\(y=mx+c\)</span>. We could certainly find <span class="arithmatex">\(m\)</span> and <span class="arithmatex">\(c\)</span> from 2 points, but AM4 often gives you a <em>noisy</em> version of the data.</p>
+<p>For example, departing a plane contributes to your alliance - but that value is randomly offset by some value, meaning if we had just used <span class="arithmatex">\(m=\frac{y_1-y_0}{x_1-x_0}\)</span>, it would yield different results every single time. We want generalised equations that best capture the relationship.</p>
+<p>Fortunately, we can gather data points, and use <a href="https://en.wikipedia.org/wiki/Ordinary_least_squares"><strong>regression</strong></a> to find the <strong>line of best fit</strong>.</p>
+<p>In Excel, you can always create a scatter plot for a dataset, then quickly find the optimum <span class="arithmatex">\(m\)</span> and <span class="arithmatex">\(c\)</span>. Python can do it similarly with one line of code. But it is always fun to understand how it works behind the hood - it is yet another simple equation!</p>
+<p>I assume you have some basic knowledge of linear algebra (I highly recommend the <a href="https://www.3blue1brown.com/topics/linear-algebra">3b1b series</a> if you are not familiar with it)</p>
+<h3 id="regression">Regression<a class="headerlink" href="#regression" title="Permanent link">¤</a></h3>
+<p>Say we have three data points <span class="arithmatex">\(A(1,1)\)</span>, <span class="arithmatex">\(B(2, 3)\)</span>, <span class="arithmatex">\(C(3, 2)\)</span> and assume some linear line <span class="arithmatex">\(y=mx+c\)</span> that passes through them.</p>
+<p>We have:</p>
+<div class="arithmatex">\[
+\begin{align*}
+1 &amp;= m\times1+c \\
+3 &amp;= m\times2+c \\
+2 &amp;= m\times3+c
+\end{align*}
+\]</div>
+<p>The goal is to find <span class="arithmatex">\(m\)</span> and <span class="arithmatex">\(c\)</span> that satisfy all three equations.</p>
+<p>We can try to calculate the slope for the first two points: <span class="arithmatex">\(m = \frac{3-1}{2-1} = 2\)</span>, and y-intercept <span class="arithmatex">\(c = 1-2\times1 = -1\)</span>. But substitute that into the third equation: <span class="arithmatex">\(2\times3 - 1 = 5\)</span>, which is clearly not <span class="arithmatex">\(2\)</span> - we call this <a href="https://en.wikipedia.org/wiki/Consistent_and_inconsistent_equations"><strong>inconsistent</strong></a>.</p>
+<p>In fact, we have 3 linearly independent equations and 2 unknowns - no combination of <span class="arithmatex">\(m\)</span> and <span class="arithmatex">\(c\)</span> will possibly satisfy all three equations. We call this an <strong>overdetermined</strong> system of equations because there are more equations than unknowns.</p>
+<h4 id="matrices">Matrices<a class="headerlink" href="#matrices" title="Permanent link">¤</a></h4>
+<p>It is convenient to rewrite the equations in matrix form:</p>
+<div class="arithmatex">\[
+\underbrace{
+\begin{bmatrix}
+1 &amp; 1 \\
+1 &amp; 2 \\
+1 &amp; 3
+\end{bmatrix}
+}_{\mathbf{A}}
+\underbrace{
+\begin{bmatrix}
+m \\
+c
+\end{bmatrix}
+}_{\mathbf{x}}
+=
+\underbrace{
+\begin{bmatrix}
+1 \\
+3 \\
+2
+\end{bmatrix}
+}_{\mathbf{b}}
+\]</div>
+<p>Intuitively, multiplying <span class="arithmatex">\(\mathbf{A}\)</span> by <span class="arithmatex">\(\mathbf{x}\)</span> effectively <em>applies</em> a 3D transformation to a 2D point, to get the final point <span class="arithmatex">\(\mathbf{b}\)</span>. Now what does <span class="arithmatex">\(\mathbf{A}\)</span> physically mean?</p>
+<p>There are two columns in this matrix: <span class="arithmatex">\([1 1 1]^\top\)</span> and <span class="arithmatex">\([1 2 3]^\top\)</span>. The first column tells me that (1, 0) in 2D space should move to (1, 1, 1) in 3D space. Similarly, (0, 1) moves to (1, 2, 3). This matrix essentially prescribes <em>how</em> to transform from our inputs to our outputs (see 3b1b's visualisation <a href="https://www.youtube.com/watch?v=v8VSDg_WQlA">here</a>).</p>
+<p>So, the question is - what point <span class="arithmatex">\(\mathbf{x}(m, c)\)</span> in the input space, after the 3D transformation, will get me to <span class="arithmatex">\(\mathbf{b}(1, 3, 2)\)</span>?</p>
+<h4 id="inverse">Inverse<a class="headerlink" href="#inverse" title="Permanent link">¤</a></h4>
+<p>Well, what if we could <em>invert</em> the <span class="arithmatex">\(\mathbf{A}\)</span> transformation on <span class="arithmatex">\(\mathbf{x}\)</span>? If we multiply can both sides by <span class="arithmatex">\(\mathbf{A}^{-1}\)</span>, we would get <span class="arithmatex">\(\mathbf{A}^{-1}\mathbf{A}\mathbf{x}=\mathbf{A}^{-1}\mathbf{b}\)</span>. (notice that <span class="arithmatex">\(\mathbf{A}^{-1}\mathbf{A}\)</span> performs the transformation then undo it, so effectively it does nothing: the <a href="https://en.wikipedia.org/wiki/Identity_matrix#Properties"><strong>identity matrix</strong></a> <span class="arithmatex">\(\mathbf{I}\)</span>). Cancelling, we have the solution <span class="arithmatex">\(\mathbf{x}=\mathbf{A}^{-1}\mathbf{b}\)</span>!</p>
+<p>But here's the thing, matrices are conventionally only <a href="https://en.wikipedia.org/wiki/Invertible_matrix"><strong>invertible</strong></a> if the number of rows matches the number of columns. A <span class="arithmatex">\(3\times 2\)</span> matrix <span class="arithmatex">\(\mathbf{A}\)</span> with full column rank (i.e. all columns are linearly independent) defines a 2D "sheet of paper" in 3D space!</p>
+<h4 id="normal-equation">Normal equation<a class="headerlink" href="#normal-equation" title="Permanent link">¤</a></h4>
+<p>Now, what can we do instead? We can find the <strong>left inverse</strong> of <span class="arithmatex">\(\mathbf{A}\)</span> instead. We can take the transpose of <span class="arithmatex">\(\mathbf{A}\)</span> on both sides of the equation:</p>
+<div class="arithmatex">\[
+\mathbf{A}^\top \mathbf{A} \mathbf{x} = \mathbf{A}^\top \mathbf{b}
+\]</div>
+<p>By taking the transpose of <span class="arithmatex">\(\mathbf{A}\)</span>, we're essentially "flipping" the matrix, so that the rows become columns and vice versa. This creates a new matrix <span class="arithmatex">\(\mathbf{A}^\top \mathbf{A}\)</span>, which is symmetric and, more importantly, invertible!</p>
+<p>Now, we can multiply both sides by the inverse of <span class="arithmatex">\(\mathbf{A}^\top \mathbf{A}\)</span>, which is denoted as <span class="arithmatex">\((\mathbf{A}^\top \mathbf{A})^{-1}\)</span>. This gives us:</p>
+<div class="arithmatex">\[
+\mathbf{x} = \underbrace{(\mathbf{A}^\top \mathbf{A})^{-1} \mathbf{A}^\top}_{\text{left inverse }\mathbf{A}^{-1}}\mathbf{b}
+\]</div>
+<p>This is known as the <strong>normal equation</strong>, and it provides the best possible approximation of the solution <span class="arithmatex">\(\mathbf{x}\)</span> in the sense of <a href="https://en.wikipedia.org/wiki/Linear_least_squares#Formulations_for_Linear_Regression">minimizing the least squares error</a>.</p>
+<hr />
+<p>Now let's return to our example, with <span class="arithmatex">\(\mathbf{A} = \begin{bmatrix}1 &amp; 1 \\1 &amp; 2 \\1 &amp; 3\end{bmatrix}\)</span> and find its left inverse:</p>
+<ul>
+<li>Find <span class="arithmatex">\(\mathbf{A}^\top \mathbf{A}\)</span>, the <strong>Gram matrix</strong>:</li>
+</ul>
+<div class="arithmatex">\[
+\begin{align*}
+\begin{bmatrix}1 &amp; 1 &amp; 1 \\ 1 &amp; 2 &amp; 3\end{bmatrix}\begin{bmatrix}1 &amp; 1 \\1 &amp; 2 \\1 &amp; 3\end{bmatrix}&amp;=\begin{bmatrix}1(1)+1(1)+1(1) &amp; 1(1)+1(2)+1(3) \\ 1(1)+2(1)+3(1) &amp; 1(1)+2(2)+3(3)\end{bmatrix} \\
+&amp;= \begin{bmatrix}
+    3 &amp; 6 \\
+    6 &amp; 14
+\end{bmatrix}
+\end{align*}
+\]</div>
+<ul>
+<li>Take its inverse, recalling the formula for <span class="arithmatex">\(2\times2\)</span> matrices, using its <a href="https://www.3blue1brown.com/lessons/determinant">determinant</a> <span class="arithmatex">\(\text{det}(\mathbf{A})\)</span>:</li>
+</ul>
+<div class="arithmatex">\[
+\begin{bmatrix}
+a &amp; b \\
+c &amp; d
+\end{bmatrix}^{-1} = \frac{1}{ad - bc}\begin{bmatrix}
+d &amp; -b \\
+-c &amp; a
+\end{bmatrix}
+\]</div>
+<div class="arithmatex">\[
+(\mathbf{A}^\top \mathbf{A})^{-1} = \frac{1}{3(14) - 6(6)} \begin{bmatrix}
+14 &amp; -6 \\
+-6 &amp; 3
+\end{bmatrix} = \frac{1}{6} \begin{bmatrix}
+14 &amp; -6 \\
+-6 &amp; 3
+\end{bmatrix} = \begin{bmatrix}
+\frac{7}{3} &amp; -1 \\
+-1 &amp; \frac{1}{2}
+\end{bmatrix}
+\]</div>
+<ul>
+<li>Now, multiply that by <span class="arithmatex">\(A^\top\)</span> to get <span class="arithmatex">\(\mathbf{A}^{-1}\)</span>:</li>
+</ul>
+<div class="arithmatex">\[
+(\mathbf{A}^\top \mathbf{A})^{-1} \mathbf{A}^\top = \begin{bmatrix}
+\frac{7}{3} &amp; -1 \\
+-1 &amp; \frac{1}{2}
+\end{bmatrix} \begin{bmatrix}
+1 &amp; 1 &amp; 1 \\
+1 &amp; 2 &amp; 3
+\end{bmatrix} = \begin{bmatrix}
+-\frac{1}{3} &amp; \frac{1}{3} &amp; 1 \\
+\frac{1}{2} &amp; 0 &amp; -\frac{1}{2}
+\end{bmatrix}
+\]</div>
+<ul>
+<li>finally, multiply it with <span class="arithmatex">\(\mathbf{b}=\begin{bmatrix}1\\3\\2\end{bmatrix}\)</span>:</li>
+</ul>
+<div class="arithmatex">\[
+\mathbf{x} = \mathbf{A}^{-1} \mathbf{b} = \begin{bmatrix}
+\frac{4}{3} &amp; \frac{1}{3} &amp; -\frac{2}{3} \\
+-\frac{1}{2} &amp; 0 &amp; \frac{1}{2}
+\end{bmatrix} \begin{bmatrix}
+1 \\
+3 \\
+2
+\end{bmatrix} = \begin{bmatrix}
+1 \\
+\frac{1}{2}
+\end{bmatrix}
+\]</div>
+<p>The line of best fit is thus <span class="arithmatex">\(y=x+\frac{1}{2}\)</span>.</p>
+<details class="question">
+<summary>Exercise 6: Implement the normal equation in Python, writing a function that takes in a list of <span class="arithmatex">\(x\)</span> and corresponding <span class="arithmatex">\(y\)</span>, returning <span class="arithmatex">\(m\)</span> and <span class="arithmatex">\(c\)</span>. Use <code>numpy</code>.</summary>
+<p>Recall <span class="arithmatex">\(\mathbf{x}=(\mathbf{A}^\top\mathbf{A})^{-1}\mathbf{A}^\top\mathbf{b}\)</span>.</p>
+<div class="language-py highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">lobf</span><span class="p">(</span><span class="n">xs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">ys</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">xs</span><span class="p">),</span> <span class="n">xs</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ys</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">A</span><span class="p">)</span> <span class="o">@</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">b</span><span class="p">)</span>
+</code></pre></div>
+<p>Verifying that our implementation is indeed correct:
+<div class="language-py highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">xs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ys</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">lobf</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">array</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.</span> <span class="p">])</span>
+</code></pre></div></p>
+</details>
+<h3 id="multiple-linear-regression">Multiple Linear Regression<a class="headerlink" href="#multiple-linear-regression" title="Permanent link">¤</a></h3>
+<p>The normal equation can also be extended to perform <strong>multiple linear regression</strong>, i.e. <span class="arithmatex">\(y=\beta_0 x_0 + \beta_1 x_1 + ... + \beta_m x_m\)</span> with <span class="arithmatex">\(m\)</span> predictor variables.</p>
+<div class="arithmatex">\[
+\mathbf{x}=(\mathbf{A}^\top\mathbf{A})^{-1}\mathbf{A}^\top\mathbf{b}
+\]</div>
+<p><span class="arithmatex">\(\mathbf{A}\)</span> is called the <strong>design matrix</strong> with size <span class="arithmatex">\(n \times m+1\)</span>. It would look like:</p>
+<div class="arithmatex">\[
+\underbrace{
+    \begin{bmatrix}
+    \rule[-1ex]{0.5pt}{2.5ex} &amp; \rule[-1ex]{0.5pt}{2.5ex} &amp; \rule[-1ex]{0.5pt}{2.5ex} &amp; &amp; \rule[-1ex]{0.5pt}{2.5ex} \\
+    1 &amp; x_1 &amp; x_2 &amp; \ldots &amp; x_m \\
+    \rule[-1ex]{0.5pt}{2.5ex} &amp; \rule[-1ex]{0.5pt}{2.5ex} &amp; \rule[-1ex]{0.5pt}{2.5ex} &amp; &amp; \rule[-1ex]{0.5pt}{2.5ex} \\
+    \end{bmatrix}
+}_{\text{m\text{ predictor variables}}}
+\]</div>
+<p>For example, if we <em>hypothesise</em> the contribution to be some linear combination of distance and CI, and want to figure out the exact formula, we should:</p>
+<ol>
+<li>Write the equation as: <span class="arithmatex">\(\text{contribution} = \beta_0 + \beta_1 \cdot \text{distance} + \beta_2 \cdot \text{CI}\)</span>,</li>
+<li>Collect samples of <span class="arithmatex">\((\text{distance}, \text{CI}, \text{contribution})\)</span> and rewrite it in the design matrix <span class="arithmatex">\(\mathbf{A}\)</span> and true values <span class="arithmatex">\(\mathbf{b}\)</span>,</li>
+<li>Evaluate the normal equation and solving for <span class="arithmatex">\(\mathbf{x}\)</span> will give <span class="arithmatex">\(\begin{bmatrix}\beta_0 \\ \beta_1 \\ \beta_2\end{bmatrix}\)</span>.</li>
+</ol>
+<h3 id="summary_1">Summary<a class="headerlink" href="#summary_1" title="Permanent link">¤</a></h3>
+<p>Most formulae in the game can be described as:</p>
+<ul>
+<li><span class="arithmatex">\(y=\beta_0 + \beta_1 x_1 + \ldots + \beta_m x_m\)</span></li>
+<li>we should collect many sets of <span class="arithmatex">\((x_1, \dots, x_m, y)\)</span> samples and compute <span class="arithmatex">\((\mathbf{A}^\top\mathbf{A})^{-1}\mathbf{A}^\top\mathbf{b}\)</span><ul>
+<li>Excel, Desmos and <code>numpy</code> are great tools to do it automatically</li>
+</ul>
+</li>
+<li>usually, <span class="arithmatex">\(y\)</span> is dependent on only one or two variables<ul>
+<li>Occam's razor suggests equations should be as simple as possible.</li>
+<li>if you perform MLR, the <span class="arithmatex">\(\beta\)</span> for redundant independent variables should be zero.</li>
+</ul>
+</li>
+</ul>
+<p>Formulae can also sometimes be <strong>non-linear</strong> (e.g. contribution), possibly in the form <span class="arithmatex">\(z=xy\)</span> or <span class="arithmatex">\(e^{x}\sin(y)\)</span>. In that case, when collecting data, we should <em>isolate</em> one variable and investigate relationships independently.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../preface/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Preface">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Preface
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../configuration/" class="md-footer__link md-footer__link--next" aria-label="Next: Aircraft Configuration">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Aircraft Configuration
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://discord.gg/4tVQHtf" target="_blank" rel="noopener" title="Airline Manager 4 Discord" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M524.531 69.836a1.5 1.5 0 0 0-.764-.7A485 485 0 0 0 404.081 32.03a1.82 1.82 0 0 0-1.923.91 338 338 0 0 0-14.9 30.6 447.9 447.9 0 0 0-134.426 0 310 310 0 0 0-15.135-30.6 1.89 1.89 0 0 0-1.924-.91 483.7 483.7 0 0 0-119.688 37.107 1.7 1.7 0 0 0-.788.676C39.068 183.651 18.186 294.69 28.43 404.354a2.02 2.02 0 0 0 .765 1.375 487.7 487.7 0 0 0 146.825 74.189 1.9 1.9 0 0 0 2.063-.676A348 348 0 0 0 208.12 430.4a1.86 1.86 0 0 0-1.019-2.588 321 321 0 0 1-45.868-21.853 1.885 1.885 0 0 1-.185-3.126 251 251 0 0 0 9.109-7.137 1.82 1.82 0 0 1 1.9-.256c96.229 43.917 200.41 43.917 295.5 0a1.81 1.81 0 0 1 1.924.233 235 235 0 0 0 9.132 7.16 1.884 1.884 0 0 1-.162 3.126 301.4 301.4 0 0 1-45.89 21.83 1.875 1.875 0 0 0-1 2.611 391 391 0 0 0 30.014 48.815 1.86 1.86 0 0 0 2.063.7A486 486 0 0 0 610.7 405.729a1.88 1.88 0 0 0 .765-1.352c12.264-126.783-20.532-236.912-86.934-334.541M222.491 337.58c-28.972 0-52.844-26.587-52.844-59.239s23.409-59.241 52.844-59.241c29.665 0 53.306 26.82 52.843 59.239 0 32.654-23.41 59.241-52.843 59.241m195.38 0c-28.971 0-52.843-26.587-52.843-59.239s23.409-59.241 52.843-59.241c29.667 0 53.307 26.82 52.844 59.239 0 32.654-23.177 59.241-52.844 59.241"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/abc8747/am4" target="_blank" rel="noopener" title="Source code" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["search.suggest", "search.highlight", "content.code.copy", "content.code.annotate", "navigation.expand", "navigation.footer"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.56ea9cef.min.js"></script>
+      
+        <script src="../../assets/js/katex.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

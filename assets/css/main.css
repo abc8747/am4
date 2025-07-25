@@ -1,0 +1,29 @@
+span.easy {
+    background-color: #6cebcc33; /*#397c6c*/
+}
+
+span.realism {
+    background-color: #5aa7f233; /*#346493*/
+}
+
+span.c-poor {
+    background-color: #ff000033;
+}
+
+span.c-moderate {
+    background-color: #ebc03433;
+}
+
+span.c-good {
+    background-color: #34eb5c33;
+}
+
+.center {
+    display: block;
+    margin: 0 auto;
+}
+
+div.arithmatex > span {
+    background-color: red;
+    padding: 0 !important;
+}

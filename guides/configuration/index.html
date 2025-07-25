@@ -1,0 +1,1987 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Discord bot and various utilities for the game Airline Manager 4.">
+      
+      
+      
+        <link rel="canonical" href="https://abc8747.github.io/am4/guides/configuration/">
+      
+      
+        <link rel="prev" href="../modelling/">
+      
+      
+        <link rel="next" href="../contribution/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
+    
+    
+      
+        <title>Aircraft Configuration - am4</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../assets/css/main.css">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+      
+        <meta  property="og:type"  content="website" >
+      
+        <meta  property="og:title"  content="Aircraft Configuration - am4" >
+      
+        <meta  property="og:description"  content="Discord bot and various utilities for the game Airline Manager 4." >
+      
+        <meta  property="og:image"  content="https://abc8747.github.io/am4/assets/images/social/guides/configuration.png" >
+      
+        <meta  property="og:image:type"  content="image/png" >
+      
+        <meta  property="og:image:width"  content="1200" >
+      
+        <meta  property="og:image:height"  content="630" >
+      
+        <meta  property="og:url"  content="https://abc8747.github.io/am4/guides/configuration/" >
+      
+        <meta  name="twitter:card"  content="summary_large_image" >
+      
+        <meta  name="twitter:title"  content="Aircraft Configuration - am4" >
+      
+        <meta  name="twitter:description"  content="Discord bot and various utilities for the game Airline Manager 4." >
+      
+        <meta  name="twitter:image"  content="https://abc8747.github.io/am4/assets/images/social/guides/configuration.png" >
+      
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#how-do-configure-an-aircraft" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="am4" class="md-header__button md-logo" aria-label="am4" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            am4
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Aircraft Configuration
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/abc8747/am4" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abc8747/am4
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="am4" class="md-nav__button md-logo" aria-label="am4" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    am4
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/abc8747/am4" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    abc8747/am4
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Development
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Quickstart
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Core
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/web-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Web API
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/discord-bot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Discord Bot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Guide
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Preface
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modelling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Mathematical Modelling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Aircraft Configuration
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Aircraft Configuration
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#easy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Easy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Easy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sheets-exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sheets Exercises
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intermediate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Intermediate
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Intermediate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      Concept Check
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-takeaways_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cargo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cargo
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tldr" class="md-nav__link">
+    <span class="md-ellipsis">
+      TLDR
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contribution Strategy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demand/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Demand
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../formulae/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Formulae
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Core
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Core
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/utils/aircraft/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Aircraft
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/utils/airport/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Airport
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/utils/demand/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Demand
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/utils/route/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Route
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/utils/ticket/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Ticket
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/utils/game/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Game
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/web-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Web API
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/db/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Database
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/bot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    TOS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#easy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Easy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Easy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sheets-exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sheets Exercises
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intermediate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Intermediate
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Intermediate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      Concept Check
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-takeaways_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cargo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cargo
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tldr" class="md-nav__link">
+    <span class="md-ellipsis">
+      TLDR
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="how-do-configure-an-aircraft">How do configure an aircraft?<a class="headerlink" href="#how-do-configure-an-aircraft" title="Permanent link">¤</a></h1>
+<blockquote>
+<p>Imagine going to a camping trip. You have a limited space in your 
+backpack and you want to pack the items that are most useful to you.
+How would you determine the best way to pack the backpack?</p>
+</blockquote>
+<p>The ultimate goal is make sure you can:</p>
+<ul>
+<li>understand the general process of seat configuration in a simplified example</li>
+<li>understand the interplay between ticket prices and seat classes</li>
+<li>explain when and why it's better to do YJF or FJY.</li>
+<li>formulate an algorithm that optimally finds the configuration given the route distance and demand</li>
+</ul>
+<p>This guide is written for technical players who want to learn the principles of the game mechanics.</p>
+<p>Reading time: ~15 minutes.</p>
+<p>Skip to <a href="#tldr">TLDR</a> for a quick summary.</p>
+<div class="admonition example">
+<p class="admonition-title">Experimental</p>
+<p>This guide is a preview and not finalised!</p>
+</div>
+<h2 id="easy">Easy<a class="headerlink" href="#easy" title="Permanent link">¤</a></h2>
+<p>Let's simplify the problem:</p>
+<div class="admonition abstract">
+<p class="admonition-title">Example</p>
+<p>Consider a hypothetical plane with <em>only</em> economy and business class.
+Both <span class="arithmatex">\(y\)</span> and <span class="arithmatex">\(j\)</span> class both occupy one "unit" of capacity.</p>
+<p>Visualising it:
+<div class="language-text highlight"><pre><span></span><code>Demand: yyyyyyyyyyjjj  10y-class, 3j-class
+Config: ______         one aircraft has total capacity 6
+        ______         we fly it twice a day
+</code></pre></div></p>
+<p><span class="arithmatex">\(y\)</span> class pays $1 and <span class="arithmatex">\(j\)</span> class pays $2: we want to carry the j-class people first.</p>
+<p>Find the optimal configuration.</p>
+</div>
+<p><strong>Plan 1</strong>: fill the configuration with <span class="arithmatex">\(j\)</span> class <em>only</em>
+<div class="language-text highlight"><pre><span></span><code>Flight 1: jjjjjj
+             ^^^ 
+       2: jjjjjj
+          ^^^^^^ ❌ bad: not enough j demand! 9 empty seats!
+</code></pre></div>
+We earned <span class="arithmatex">\(3 \times 2 = \$6\)</span> only.</p>
+<p><strong>Plan 2</strong>: fill the configuration with <span class="arithmatex">\(y\)</span> class <em>only</em>
+<div class="language-text highlight"><pre><span></span><code>Flight 1: yyyyyy
+
+       2: yyyyyy
+              ^^ ❌ bad: not enough y demand! 2 empty seats!
+</code></pre></div>
+We earned <span class="arithmatex">\(6×\$1 + 4×\$1 = \$10\)</span>.</p>
+<p>But we can do better by taking the best of both worlds.</p>
+<p><strong>Plan 3</strong>:</p>
+<p>Fill the configuration with the most valuable class (<span class="arithmatex">\(j\)</span> class) first.</p>
+<ul>
+<li>we have 3 j-demands and we don't want it to run out after 2 flights.</li>
+<li>so each flight should have at most, <span class="arithmatex">\(\frac{3}{2} = 1.5\)</span> seats.</li>
+<li>we should therefore <em>try</em> fill in 1 seat per flight:</li>
+</ul>
+<div class="language-text highlight"><pre><span></span><code>Flight 1: j_____
+
+       2: j_____
+</code></pre></div>
+<p>Fill the remaining slots with <span class="arithmatex">\(y\)</span> class:</p>
+<ul>
+<li>we have 10 y-demands and we don't want it to run out after 2 flights.</li>
+<li>so each flight should have on average, <span class="arithmatex">\(\frac{10}{2} = 5\)</span> seats.</li>
+<li>we should therefore <em>try</em> fill in max 5 seats per flight:</li>
+</ul>
+<div class="language-text highlight"><pre><span></span><code>Flight 1: jyyyyy
+
+       2: jyyyyy
+</code></pre></div>
+<p>Great! We earned <span class="arithmatex">\(2(1\times\$2 + 5\times\$1) = \$14\)</span>!</p>
+<h3 id="sheets-exercises">Sheets Exercises<a class="headerlink" href="#sheets-exercises" title="Permanent link">¤</a></h3>
+<p>Consider the following Sheet:
+<div class="language-text highlight"><pre><span></span><code>   A         B
+1  y demand  j demand
+2  capacity  number of flights
+3
+</code></pre></div></p>
+<details class="question">
+<summary>1. Write functions to calculate the optimal configuration.</summary>
+<ul>
+<li><strong>Fill in j-class</strong>: each flight should have <span class="arithmatex">\(\frac{\text{j demand}}{\text{number of flights}}\)</span> j seats</li>
+</ul>
+<div class="language-text highlight"><span class="filename">Cell B3</span><pre><span></span><code>FLOOR(B1 / B2)
+</code></pre></div>
+<ul>
+<li><strong>Calculate y-class seats</strong>: each flight should have <span class="arithmatex">\((\text{capacity}-\text{j seats})\)</span> y seats</li>
+</ul>
+<div class="language-text highlight"><span class="filename">Cell A3</span><pre><span></span><code>A2 - B3
+</code></pre></div>
+</details>
+<details class="question">
+<summary>2. A route is suboptimal when there is <em>insufficient demand</em>. Add an error if this happens. (tip: consider a demand of 4Y, 3J for the same aircraft)</summary>
+<p>Example:</p>
+<ol>
+<li>
+<p>3J ÷ 2 flights = 1.5J per flight (rounding down to 1J per flight)
+<div class="language-text highlight"><pre><span></span><code>Flight 1: j_____
+       2: j_____
+</code></pre></div></p>
+</li>
+<li>
+<p>Filling in the rest with Y class
+<div class="language-text highlight"><pre><span></span><code>Flight 1: jyyyyy
+       2: jyyyyy
+</code></pre></div>
+Notice that we have 5Y seats but only 2Y demand left. There is insufficient demand.</p>
+</li>
+</ol>
+<p>We want to show an error if the demand left <span class="arithmatex">\(\left(\frac{\text{y demand}}{\text{number of flights}}\right)\)</span> is less than our computed Y seats.</p>
+<p>We can use the <code>IF(condition, true_value, false_value)</code> formula:</p>
+<div class="language-text highlight"><span class="filename">Cell A4</span><pre><span></span><code>IF(FLOOR(A1/B2) &lt; A3, &quot;INSUFFICIENT DEMAND&quot;, &quot;OK&quot;)
+</code></pre></div>
+</details>
+<h3 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">¤</a></h3>
+<p>The number of seats per flight is <span class="arithmatex">\(\frac{\text{demand}}{\text{number of flights}}\)</span>, rounded down.</p>
+<p>If we want to configure aircraft with two classes:</p>
+<ol>
+<li>fill in the highest paying class first</li>
+<li>allocate the remaining seats to the lower paying class</li>
+<li>if the amount of seats in the lower paying class exceeds its demand, the route is suboptimal.</li>
+</ol>
+<p>As you may imagine, we can generalise this algorithm to three classes (pax aircraft).</p>
+<h2 id="intermediate">Intermediate<a class="headerlink" href="#intermediate" title="Permanent link">¤</a></h2>
+<p>In AM4, the key point to remember is that <strong>one seat can use up multiple "units" of the aircraft capacity</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Seat Class</th>
+<th>Capacity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(y\)</span></td>
+<td>1 unit</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(j\)</span></td>
+<td>2 units</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(f\)</span></td>
+<td>3 units</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition abstract">
+<p class="admonition-title">Example</p>
+<p>Consider a plane with 2 economy <span class="arithmatex">\(y\)</span>, 2 business <span class="arithmatex">\(j\)</span>, and 3 first class <span class="arithmatex">\(f\)</span> seats.</p>
+<p><div class="language-text highlight"><pre><span></span><code>y y jj jj fff fff fff
+1 2 1  2  1   2   3
+</code></pre></div>
+If you count up the letters, we have <span class="arithmatex">\(2\times1 + 2\times2 + 3\times3 = 15\)</span> "units" of capacity.</p>
+<p>But we call this configuration "2Y 2J 3F", or 7 seats in total.</p>
+</div>
+<details class="question">
+<summary>A plane has 13 capacity, 2 <span class="arithmatex">\(j\)</span> and 5 <span class="arithmatex">\(y\)</span> seats. How many <span class="arithmatex">\(f\)</span> seats should it have?</summary>
+<p>We know that the sum of "units" should add up to the capacity, so:</p>
+<div class="arithmatex">\[
+\begin{align*}
+y+2j+3f &amp;= \text{capacity} \\
+f &amp;= \frac{\text{capacity}-2j-y}{3} \\
+&amp;= \frac{12-4-5}{3} = 1
+\end{align*}
+\]</div>
+<p>Note: if there were 6 <span class="arithmatex">\(y\)</span> seats instead, we would compute <span class="arithmatex">\(f=\frac{2}{3}\)</span> which will be rounded down to 0.</p>
+<p>It is perfectly OK if <span class="arithmatex">\(y+2j+3f\)</span> don't add up to the capacity.</p>
+</details>
+<p>Now, let's reconsider the example from the <a href="#easy">easy</a> section:</p>
+<div class="admonition abstract">
+<p class="admonition-title">Example</p>
+<p>Consider a hypothetical route without first class demand:</p>
+<div class="language-text highlight"><pre><span></span><code>Demand: yyyyyyyyjjjjjj  8y-class, 6j-class
+Config: ______          one aircraft has total capacity 6
+        ______          we fly it twice a day
+</code></pre></div>
+<p><span class="arithmatex">\(y\)</span> class pays $1 and <span class="arithmatex">\(j\)</span> class pays $1.5.</p>
+<p>Should we fill in <span class="arithmatex">\(y\)</span> first or <span class="arithmatex">\(j\)</span> first?</p>
+</div>
+<p>Well, you may answer of course <span class="arithmatex">\(j\)</span> because it pays more.</p>
+<p>Let's try it, remembering 1J = 2 "units" of capacity:</p>
+<div class="language-text highlight"><pre><span></span><code>Demand: yyyyyyyy···jjj
+Config: jjjjjj    
+        jjjjjj    
+</code></pre></div>
+<p>3J earned us <span class="arithmatex">\(2(3\times\$1.5) = \$9\)</span>.</p>
+<p>Doing the other way round: filling with y first:</p>
+<div class="language-text highlight"><pre><span></span><code>Demand: ········jjjjjj    Demand: ··········jjjj
+Config: yyyy__         -&gt; Config: yyyyjj        
+        yyyy__                    yyyyjj        
+</code></pre></div>
+<p>4Y1J earned us <span class="arithmatex">\(2(4\times\$1+1\times1.5) = \$11\)</span>!</p>
+<p>The higher paying class does not always mean we should always fill them in first:
+they also "waste" the available capacity.</p>
+<p>To determine which class is "objectively" better, let us create a score
+<span class="arithmatex">\(\frac{\text{expected income}}{\text{units of capacity}}\)</span>. Intuitively, a higher
+ticket price will give us a better score, and higher units of capacity will decrease
+the score.</p>
+<p>In our example:</p>
+<div class="arithmatex">\[
+\begin{align*}
+\text{score}_j &amp;= \frac{\$1.5}{2} = \$0.75\text{ per unit of capacity} \\
+\text{score}_y &amp;= \frac{\$1}{1} = \$1\text{ per unit of capacity}
+\end{align*}
+\]</div>
+<p>So, a plane <em>full</em> of <span class="arithmatex">\(y\)</span> seats would give us 33% more profit than a plane full of <span class="arithmatex">\(j\)</span> class.
+Indeed, our example matches this observation.</p>
+<h3 id="concept-check">Concept Check<a class="headerlink" href="#concept-check" title="Permanent link">¤</a></h3>
+<p>Now, it's time to actually calculate which class is better in AM4. The formula for <a href="../../formulae/#ticket-prices">pax ticket prices</a> in easy mode are:</p>
+<div class="arithmatex">\[
+\begin{align*}
+\$_\text{Y} &amp;= 0.4d+170 \\
+\$_\text{J} &amp;= 0.8d+560 \\
+\$_\text{F} &amp;= 1.2d+1200 \\
+\end{align*}
+\]</div>
+<p>Here, the ticket prices <span class="arithmatex">\(\$\)</span> increase when distance <span class="arithmatex">\(d\)</span> increases. The optimal multipliers are 1.1, 1.08, 1.06 respectively.</p>
+<details class="question">
+<summary>1. In what order should we fill seats in at a distance of 4000km (using default autoprice)?</summary>
+<p>We should compute the "score", or the expected income per unit capacity for each class:</p>
+<div class="arithmatex">\[
+\begin{align*}
+\text{score}_y &amp;= \frac{0.4\times4000+170}{1} = \$1770 \text{ per unit} \\
+\text{score}_j &amp;= \frac{0.8\times4000+560}{2} = \$1880 \text{ per unit} \\
+\text{score}_f &amp;= \frac{1.2\times4000+1200}{3} = \$2000 \text{ per unit} \\
+\end{align*}
+\]</div>
+<p>The order should be <span class="arithmatex">\(f&gt;j&gt;y\)</span>.</p>
+</details>
+<details class="question">
+<summary>2. How much more profit would we earn if we had filled in a full plane of <span class="arithmatex">\(f\)</span> class instead of <span class="arithmatex">\(y\)</span> class, at a distance of 13000km (using the autoprice multipliers)?</summary>
+<p>Computing the "score" for <span class="arithmatex">\(d = 13000\)</span>:</p>
+<div class="arithmatex">\[
+\begin{align*}
+\text{score}_y &amp;= \frac{1.1(0.4\times13000+170)}{1} = \$5907 \text{ per unit} \\
+\text{score}_j &amp;= \frac{1.08(0.8\times13000+560)}{2} = \$5918 \text{ per unit} \\
+\text{score}_f &amp;= \frac{1.06(1.2\times13000+1200)}{3} = \$5936 \text{ per unit} \\
+\end{align*}
+\]</div>
+<p>The order should be <span class="arithmatex">\(f&gt;j&gt;y\)</span>. But notice each of them are almost equally as good: <span class="arithmatex">\(f\)</span> class only gives us <span class="arithmatex">\(\frac{5936-5907}{5907} = 0.49\%\)</span> more profit.</p>
+<p>Practically, doing <span class="arithmatex">\(y&gt;j&gt;f\)</span> might actually be better if there's a lot of <span class="arithmatex">\(y\)</span> demand.</p>
+</details>
+<details class="question">
+<summary>3. When should we choose <span class="arithmatex">\(y&gt;j&gt;f\)</span>? (using the autoprice multipliers)?</summary>
+<p>That means our "score" should follow the following relationships:</p>
+<ul>
+<li><span class="arithmatex">\(\text{score}_y\)</span> should be greater than <span class="arithmatex">\(\text{score}_j\)</span></li>
+<li><span class="arithmatex">\(\text{score}_j\)</span> should be greater than <span class="arithmatex">\(\text{score}_f\)</span></li>
+</ul>
+<p>For the first relation, we have:</p>
+<div class="arithmatex">\[
+\begin{align*}
+\frac{1.1(0.4d+170)}{1} &amp;\gt \frac{1.08(0.8d+560)}{2} \\
+1.1(0.4d+170) &amp;\gt 0.54(0.8d+560) \\
+1.1(0.4d)-0.54(0.8d) &amp;\gt 0.54(560)-1.1(170) \\
+0.008d &amp;\gt 115.4 \\
+d &amp;\gt 14425
+\end{align*}
+\]</div>
+<p>Similarly for the second relation, we have:</p>
+<div class="arithmatex">\[
+\begin{align*}
+\frac{1.08(0.8d+560)}{2} &amp;\gt \frac{1.06(1.2d+1200)}{3} \\
+3\cdot0.54(0.8d+560) &amp;\gt 1.06(1.2d+1200) \\
+1.62(0.8d)-1.06(1.2d) &amp;\gt 1.06(1200)-1.62(560) \\
+0.024d &amp;\gt 364.8 \\
+d &amp;\gt 15200
+\end{align*}
+\]</div>
+<p>To satisfy both relations, <span class="arithmatex">\({d&gt;14425 \cup d&gt;15200}\)</span> means <span class="arithmatex">\(d&gt;15200 \text{km}\)</span>.</p>
+<p>Here is a graph to illustrate this (try clicking at the intersection):
+<iframe class="desmos" src="https://www.desmos.com/calculator/7jefcotmgd?embed" width="100%" height="300" frameborder=0></iframe></p>
+</details>
+<p>We are interested in the question:</p>
+<blockquote>
+<p>How much extra income would we gain by filling <span class="arithmatex">\(f\)</span> seats over <span class="arithmatex">\(y\)</span> seats?</p>
+</blockquote>
+<p>We can compute ratio between the <span class="arithmatex">\(f\)</span> score and the <span class="arithmatex">\(y\)</span> score:</p>
+<div class="arithmatex">\[
+\begin{align*}
+\frac{\text{score}_f}{\text{score}_y}&amp;=\frac{\frac{1.06(1.2d+1200)}{3}}{\frac{1.1(0.4d+170)}{1}} \\
+&amp;=\frac{0.424d+424}{0.44d+187}
+\end{align*}
+\]</div>
+<iframe class="desmos" src="https://www.desmos.com/calculator/gr3gmp7w3q?embed" width="100%" height="300" frameborder=0></iframe>
+
+<p>At a distance of 2000 km, we can gain <span class="arithmatex">\(19.2\%\)</span> more profit. But as the distance <span class="arithmatex">\(d\)</span> increases, we have diminishing returns and approach the break-even point at <span class="arithmatex">\(14812.5\)</span> km.</p>
+<h3 id="key-takeaways_1">Key Takeaways<a class="headerlink" href="#key-takeaways_1" title="Permanent link">¤</a></h3>
+<ul>
+<li><span class="arithmatex">\(y\)</span>, <span class="arithmatex">\(j\)</span>, <span class="arithmatex">\(f\)</span> class seats each occupy different units of capacity.</li>
+<li>we can calculate the "score" for each class with <span class="arithmatex">\(\frac{\text{expected income}}{\text{units of capacity}}\)</span></li>
+<li>we should fill seats with the highest score first.<ul>
+<li>however, the configuration order doesn't matter when you use the multipliers.</li>
+<li>use <span class="arithmatex">\(y&gt;j&gt;f\)</span> for extra long range distances (&gt;15200km), otherwise stick to <span class="arithmatex">\(f&gt;j&gt;y\)</span>.</li>
+</ul>
+</li>
+</ul>
+<h2 id="advanced">Advanced<a class="headerlink" href="#advanced" title="Permanent link">¤</a></h2>
+<p>Now let's consolidate everything and construct the pax algorithm in Sheets!</p>
+<p>Consider the following Sheet:
+<div class="language-text highlight"><pre><span></span><code>   A         B                  C
+1  y demand  j demand           f demand
+2  capacity  number of flights
+3
+</code></pre></div></p>
+<p>Suppose we wanted to calculate the <span class="arithmatex">\(f&gt;j&gt;y\)</span> configuration in row 3.</p>
+<p>Here is the initial plan:</p>
+<ol>
+<li>We need to fill the highest paying <span class="arithmatex">\(f\)</span> seats first:<ul>
+<li><span class="arithmatex">\(\text{seats}_f = \frac{\text{demand}_f}{\text{number of flights}}\)</span>, rounded down</li>
+<li><code>CHECK1</code></li>
+</ul>
+</li>
+<li>Fill the <span class="arithmatex">\(j\)</span> seats next:<ul>
+<li><span class="arithmatex">\(\text{seats}_j = \frac{\text{demand}_j}{\text{number of flights}}\)</span>, rounded down</li>
+<li><code>CHECK2</code></li>
+</ul>
+</li>
+<li>Fill the remaining seats with <span class="arithmatex">\(y\)</span>:<ul>
+<li><span class="arithmatex">\(\text{seats}_y = \text{capacity} - \text{seats}_j \times 2 - \text{seats}_f \times 3\)</span></li>
+<li><code>CHECK3</code></li>
+</ul>
+</li>
+</ol>
+<details class="question">
+<summary>Explain what needs to be put in <code>CHECK</code>.</summary>
+<p>We need to make sure the seats actually makes sense: it doesn't exceed the capacity remaining.</p>
+<p>Suppose a plane with capacity 100, demand <code>0Y 1000J 0F</code> and 2 flights per day.</p>
+<ul>
+<li>the naive calculation <span class="arithmatex">\(\text{seats}_j = \frac{1000}{2} = 500\)</span> exceeds the capacity.</li>
+<li>we need to cap it at <span class="arithmatex">\(\text{capacity}/2 = 50\)</span> instead.</li>
+</ul>
+<p>Fixes:</p>
+<ul>
+<li><code>CHECK1</code>: make sure the calculated <span class="arithmatex">\(\text{seats}_f \times 3 &lt; \text{capacity}\)</span>. If it fails, set <span class="arithmatex">\(\text{seats}_f = \frac{\text{capacity}}{3}\)</span></li>
+<li><code>CHECK2</code>: make sure the calculated <span class="arithmatex">\(\text{seats}_j \times 2 + \text{seats}_f \times 3 &lt; \text{capacity}\)</span>. If it fails, set <span class="arithmatex">\(\text{seats}_j = \frac{\text{capacity} - \text{seats}_f \times 3}{2}\)</span></li>
+<li><code>CHECK3</code>: make sure the calculated <span class="arithmatex">\(\text{seats}_y &lt; \text{demand}_y/\text{number of flights}\)</span>, that is, there is sufficient demand remaining for us to carry.</li>
+</ul>
+</details>
+<h3 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">¤</a></h3>
+<details class="question">
+<summary>1. Write a function in Cell C3 that does Step 1.</summary>
+<p>The initial solution:
+<div class="language-text highlight"><span class="filename">Cell C3</span><pre><span></span><code>FLOOR(C1/B2)
+</code></pre></div></p>
+<p><code>CHECK1</code>: if the initial solution exceeds the capacity:</p>
+<ul>
+<li>fill it with the remaining capacity (<span class="arithmatex">\(\frac{\text{capacity}}{3}\)</span>), rounded down</li>
+<li>otherwise, keep the initial solution</li>
+</ul>
+<div class="language-text highlight"><span class="filename">Cell C3</span><pre><span></span><code>IF((FLOOR(C1/B2)*3) &lt; A2, FLOOR(C1/B2), FLOOR(A2/3))
+</code></pre></div>
+<p>Another way to do it is to grab the minimum between it and the equivalent capacity:
+<div class="language-text highlight"><span class="filename">Cell C3</span><pre><span></span><code>MIN(FLOOR(C1/B2), FLOOR(A2/3))
+</code></pre></div></p>
+</details>
+<details class="question">
+<summary>2. Write a function in Cell B3 that does Step 2.</summary>
+<p>The initial solution:
+<div class="language-text highlight"><span class="filename">Cell B3</span><pre><span></span><code>FLOOR(B1/B2)
+</code></pre></div></p>
+<p><code>CHECK2</code>: if the initial solution (combined with the previously calculated <span class="arithmatex">\(\text{seats}_f\)</span>) exceeds the capacity:</p>
+<ul>
+<li>fill it with the remaining capacity (<span class="arithmatex">\(\frac{\text{capacity} - 3\times\text{seats}_f}{2}\)</span>), rounded down</li>
+<li>otherwise, keep the initial solution</li>
+</ul>
+<div class="language-text highlight"><span class="filename">Cell B3</span><pre><span></span><code>IF((FLOOR(B1/B2)*2 + C3*3) &lt; A2, FLOOR(B1/B2), FLOOR((A2 - C3*3)/2))
+</code></pre></div>
+<p>A simpler way to do it:
+<div class="language-text highlight"><span class="filename">Cell B3</span><pre><span></span><code>MIN(FLOOR(B1/B2), FLOOR((A2 - C3*3)/2))
+</code></pre></div></p>
+</details>
+<details class="question">
+<summary>3. Write a function in Cell A3 that does Step 3. Show an error in Cell A4 (if any).</summary>
+<p>The initial solution:
+<div class="language-text highlight"><span class="filename">Cell A3</span><pre><span></span><code>A2 - C3*3 - B2*2
+</code></pre></div></p>
+<p><code>CHECK3</code>: if this solution is greater than the remaining <span class="arithmatex">\(\text{demand}_y\)</span>:
+there are no demand remaining and we should show an error in <code>Cell A4</code>.</p>
+<div class="language-text highlight"><span class="filename">Cell A4</span><pre><span></span><code>IF(A3 &gt; FLOOR(A1/B2), &quot;INSUFFICIENT DEMAND&quot;, &quot;VALID&quot;)
+</code></pre></div>
+</details>
+<details class="question">
+<summary>4. If you are familiar with Python, write an implemention for the <span class="arithmatex">\(f&gt;j&gt;y\)</span> configuration. It should take inputs <code>yd: int</code>, <code>jd: int</code>, <code>fd: int</code> (demand per flight) and <code>capacity: int</code> , returning <code>tuple[int, int, int, bool]</code> (indicating the validity).</summary>
+<p>A possible solution:
+<div class="language-py highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">calc_fjy_conf</span><span class="p">(</span><span class="n">yd</span><span class="p">,</span> <span class="n">jd</span><span class="p">,</span> <span class="n">fd</span><span class="p">,</span> <span class="n">capacity</span><span class="p">):</span>
+    <span class="n">fs</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">capacity</span> <span class="o">//</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">capacity</span> <span class="o">-=</span> <span class="n">fs</span> <span class="o">*</span> <span class="mi">3</span>  <span class="c1"># (1)!</span>
+    <span class="n">js</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">jd</span><span class="p">,</span> <span class="n">capacity</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">capacity</span> <span class="o">-=</span> <span class="n">js</span> <span class="o">*</span> <span class="mi">2</span>  <span class="c1"># (2)!</span>
+    <span class="n">ys</span> <span class="o">=</span> <span class="n">capacity</span> <span class="c1"># (3)!</span>
+    <span class="n">valid</span> <span class="o">=</span> <span class="n">ys</span> <span class="o">&lt;</span> <span class="n">yd</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">ys</span><span class="p">,</span> <span class="n">js</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">valid</span><span class="p">)</span>
+</code></pre></div></p>
+<ol>
+<li>Step 1: Fill first class seats first, and subtract from the available capacity.</li>
+<li>Step 2: Fill business class seats, and substract from the available capacity.</li>
+<li>Step 3: The capacity remaining should just be the y seats.</li>
+</ol>
+</details>
+<h3 id="cargo">Cargo<a class="headerlink" href="#cargo" title="Permanent link">¤</a></h3>
+<p>Cargo is has a similar mechanic to pax aircraft:</p>
+<table>
+<thead>
+<tr>
+<th>Cargo Class</th>
+<th>Capacity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Large, <span class="arithmatex">\(l\)</span></td>
+<td><span class="arithmatex">\(\frac{10}{7}\)</span> units</td>
+</tr>
+<tr>
+<td>Heavy, <span class="arithmatex">\(h\)</span></td>
+<td>1 unit</td>
+</tr>
+</tbody>
+</table>
+<p>For example, a cargo aircraft with 100000 lbs capacity with 100% large cargo can only take <span class="arithmatex">\(100000\times0.7 = 70000\)</span> lbs. The formula for <a href="../../formulae/#cargo">cargo ticket prices</a> in easy mode are:</p>
+<div class="arithmatex">\[
+\begin{align*}
+\$_\text{L} &amp;= 0.0948283724581252d + 85.2045432642377000 \\
+\$_\text{H} &amp;= 0.0689663577640275d + 28.2981124272893000 \\
+\end{align*}
+\]</div>
+<p>The ticket price <span class="arithmatex">\(\$\)</span> also increase when distance <span class="arithmatex">\(d\)</span> increases. The autoprice multipliers are 1.1 and 1.08 respectively.</p>
+<details class="question">
+<summary>At what distances should we choose <span class="arithmatex">\(l &gt; h\)</span>?</summary>
+<p>Using the score function we developed early, we require:</p>
+<div class="arithmatex">\[
+\begin{align*}
+\frac{\text{expected income}}{\text{units of capacity}}_l &amp;\gt \frac{\text{expected income}}{\text{units of capacity}}_h \\
+\frac{1.1(0.094828d + 85.20454)}{\frac{10}{7}} &amp;\gt \frac{(1.08(0.068966d + 28.29811))}{1} \\
+-0.0014658d &amp;\gt -35.04554 \\
+d &amp;\lt 23908.49
+\end{align*}
+\]</div>
+<p>Since the earth's half-circumference is <span class="arithmatex">\(6371\pi=20015\)</span>km, we should choose <span class="arithmatex">\(l &gt; h\)</span> for almost all flights.</p>
+<p><iframe class="desmos" src="https://www.desmos.com/calculator/8gxc0f5sob?embed" width="100%" height="300" frameborder=0></iframe></p>
+</details>
+<details class="question">
+<summary>Develop a plan for the <span class="arithmatex">\(l&gt;h\)</span> configuration formula.</summary>
+<ol>
+<li>
+<p>Fill the highest paying cargo: <span class="arithmatex">\(l\)</span>:</p>
+<ul>
+<li><span class="arithmatex">\(\text{\%}_l=\min\left(\frac{\text{demand}_l / \text{number of flights} \times 10/7}{\text{capacity}}, 100\%\right)\)</span></li>
+</ul>
+</li>
+<li>
+<p>Fill the remaining with <span class="arithmatex">\(h\)</span> cargo:</p>
+<ul>
+<li><span class="arithmatex">\(\text{\%}_h=1-\text{\%}_l\)</span></li>
+<li>Check <span class="arithmatex">\(\frac{\text{demand}_h}{\text{number of flights}} \ge \text{capacity} \times \text{\%}_h\)</span></li>
+</ul>
+</li>
+</ol>
+</details>
+<details class="question">
+<summary>If you are familiar with Python, write an implementation for the <span class="arithmatex">\(l &gt; h\)</span> configuration. It should take in <code>ld: int</code>, <code>hd: int</code> (demand per flight) and <code>capacity: int</code>, returning <code>tuple[float, float, bool]</code> (indicating the validity).</summary>
+<p>A possible solution:
+<div class="language-py highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">calc_l_conf</span><span class="p">(</span><span class="n">ld</span><span class="p">,</span> <span class="n">hd</span><span class="p">,</span> <span class="n">capacity</span><span class="p">,</span> <span class="n">l_training</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">h_training</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+    <span class="n">l_cap</span> <span class="o">=</span> <span class="n">capacity</span> <span class="o">*</span> <span class="mf">0.7</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">l_training</span> <span class="o">/</span> <span class="mf">100.0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ld</span> <span class="o">&gt;</span> <span class="n">l_cap</span><span class="p">:</span>  <span class="c1"># (1)!</span>
+        <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">l</span> <span class="o">=</span> <span class="n">ld</span> <span class="o">/</span> <span class="n">l_cap</span>  <span class="c1"># (2)!</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">l</span>  <span class="c1"># (3)!</span>
+    <span class="n">valid</span> <span class="o">=</span> <span class="n">hd</span> <span class="o">&gt;=</span> <span class="n">capacity</span> <span class="o">*</span> <span class="n">h</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">h_training</span> <span class="o">/</span> <span class="mf">100.0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">valid</span><span class="p">)</span>
+</code></pre></div></p>
+<ol>
+<li>Early exit in case the demand per flight exceeds our large capacity</li>
+<li>Step 1: Fill in large <span class="arithmatex">\(l\)</span> first.</li>
+<li>Step 2: Fill the remaining with <span class="arithmatex">\(h\)</span>.</li>
+</ol>
+</details>
+<p>The aforementioned approach is a <em>greedy bang-for-buck heuristic</em> solution for the rod cutting problem. The optimal solution has exponentially many partitions - you may be interested in the <a href="https://en.wikipedia.org/wiki/Knapsack_problem">Bounded knapsack problem</a> and <a href="https://en.wikipedia.org/wiki/Genetic_algorithm">Genetic algorithms</a>.</p>
+<h2 id="tldr">TLDR<a class="headerlink" href="#tldr" title="Permanent link">¤</a></h2>
+<p>For a given (seat class, units of capacity, demand) pair and initial capacity:</p>
+<ul>
+<li><span class="arithmatex">\(\text{seats} = \frac{\text{demand}}{\text{flights per day}}\)</span>, rounded down</li>
+<li>remove <span class="arithmatex">\(\text{seats} \times \text{units of capacity}\)</span> from the capacity</li>
+<li>if there are no more capacity left, fill this seat using the previous iteration's leftover capacity.</li>
+</ul>
+<div class="admonition abstract">
+<p class="admonition-title">Example: TGPY-UTDD. A380 (capacity 600), YJF configuration.</p>
+<p>Demand: 1779Y, 395J, 198F, 6 flights per day.</p>
+<table>
+<thead>
+<tr>
+<th>Seat Class</th>
+<th>Seats</th>
+<th>Seats to fill</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Y</td>
+<td><span class="arithmatex">\(\left\lfloor\frac{1779}{6}\right\rfloor = 296\)</span></td>
+<td><span class="arithmatex">\(600-296 = 304\)</span></td>
+</tr>
+<tr>
+<td>J</td>
+<td><span class="arithmatex">\(\left\lfloor\frac{395}{6}\right\rfloor = 65\)</span></td>
+<td><span class="arithmatex">\(305-65\times2 = 174\)</span></td>
+</tr>
+<tr>
+<td>F</td>
+<td><span class="arithmatex">\(\left\lfloor\frac{198}{6}\right\rfloor = 33\)</span></td>
+<td><span class="arithmatex">\(174-33\times3 = 75\)</span></td>
+</tr>
+<tr>
+<td colspan="3"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14h-2V9h2m0 9h-2v-2h2M1 21h22L12 2z"/></svg></span> We used up all demand but there are 75 empty seats. Insufficient demand!</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>What about 5 flights per day?</p>
+<table>
+<thead>
+<tr>
+<th>Seat Class</th>
+<th>Seats</th>
+<th>Seats to fill</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Y</td>
+<td><span class="arithmatex">\(\left\lfloor\frac{1779}{5}\right\rfloor = 355\)</span></td>
+<td><span class="arithmatex">\(600-355 = 245\)</span></td>
+</tr>
+<tr>
+<td>J</td>
+<td><span class="arithmatex">\(\left\lfloor\frac{395}{5}\right\rfloor = 79\)</span></td>
+<td><span class="arithmatex">\(245-79\times2 = 87\)</span></td>
+</tr>
+<tr>
+<td>F</td>
+<td><span class="arithmatex">\(\left\lfloor\frac{198}{5}\right\rfloor = 39\)</span></td>
+<td><span class="arithmatex">\(87-39\times3 = -30\)</span></td>
+</tr>
+<tr>
+<td colspan="3"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12h-2.7c0 5.128-4.172 9.3-9.3 9.3S2.7 17.128 2.7 12 6.872 2.7 12 2.7zm7.4 2.583-7.505 9.371L8.388 9.08l-2.002 2.436 4.741 3.888a1.573 1.573 0 0 0 2.231-.233l8.504-10.617z"/></svg></span> There are more demand than there are seats to fill. So, fill the remaining seats from J.</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>F*</td>
+<td><span class="arithmatex">\(\frac{87}{3}=29\)</span></td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>(Y, J, F*) is the optimal configuration: 355Y, 79J, 29F.</p>
+<p>And 3 flights per day?</p>
+<table>
+<thead>
+<tr>
+<th>Seat Class</th>
+<th>Seats</th>
+<th>Seats to fill</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Y</td>
+<td><span class="arithmatex">\(\left\lfloor\frac{1779}{3}\right\rfloor = 593\)</span></td>
+<td><span class="arithmatex">\(600-593 = 7\)</span></td>
+</tr>
+<tr>
+<td>J</td>
+<td><span class="arithmatex">\(\left\lfloor\frac{395}{3}\right\rfloor = 131\)</span></td>
+<td><span class="arithmatex">\(7-131\times2 = -255\)</span></td>
+</tr>
+<tr>
+<td colspan="3"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12h-2.7c0 5.128-4.172 9.3-9.3 9.3S2.7 17.128 2.7 12 6.872 2.7 12 2.7zm7.4 2.583-7.505 9.371L8.388 9.08l-2.002 2.436 4.741 3.888a1.573 1.573 0 0 0 2.231-.233l8.504-10.617z"/></svg></span> There are more demand than there are seats to fill. So, fill the remaining seats from Y.</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>J*</td>
+<td><span class="arithmatex">\(\frac{7}{2}=3\)</span></td>
+<td>0</td>
+</tr>
+<tr>
+<td>F*</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>(Y, J*, F*) is the optimal configuration: 593Y, 3J, 0F.</p>
+<p>* means it is being limited by the capacity constraint.</p>
+</div>
+<p>Above 5000km, there are practically <a href="#intermediate">no difference in profits</a> between seat orders (&lt;5%).
+Below it, use FJY. See <a href="../../formulae/#pax-seat-ordering">the formulae</a> for more info.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../modelling/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Mathematical Modelling">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Mathematical Modelling
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../contribution/" class="md-footer__link md-footer__link--next" aria-label="Next: Contribution Strategy">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Contribution Strategy
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://discord.gg/4tVQHtf" target="_blank" rel="noopener" title="Airline Manager 4 Discord" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M524.531 69.836a1.5 1.5 0 0 0-.764-.7A485 485 0 0 0 404.081 32.03a1.82 1.82 0 0 0-1.923.91 338 338 0 0 0-14.9 30.6 447.9 447.9 0 0 0-134.426 0 310 310 0 0 0-15.135-30.6 1.89 1.89 0 0 0-1.924-.91 483.7 483.7 0 0 0-119.688 37.107 1.7 1.7 0 0 0-.788.676C39.068 183.651 18.186 294.69 28.43 404.354a2.02 2.02 0 0 0 .765 1.375 487.7 487.7 0 0 0 146.825 74.189 1.9 1.9 0 0 0 2.063-.676A348 348 0 0 0 208.12 430.4a1.86 1.86 0 0 0-1.019-2.588 321 321 0 0 1-45.868-21.853 1.885 1.885 0 0 1-.185-3.126 251 251 0 0 0 9.109-7.137 1.82 1.82 0 0 1 1.9-.256c96.229 43.917 200.41 43.917 295.5 0a1.81 1.81 0 0 1 1.924.233 235 235 0 0 0 9.132 7.16 1.884 1.884 0 0 1-.162 3.126 301.4 301.4 0 0 1-45.89 21.83 1.875 1.875 0 0 0-1 2.611 391 391 0 0 0 30.014 48.815 1.86 1.86 0 0 0 2.063.7A486 486 0 0 0 610.7 405.729a1.88 1.88 0 0 0 .765-1.352c12.264-126.783-20.532-236.912-86.934-334.541M222.491 337.58c-28.972 0-52.844-26.587-52.844-59.239s23.409-59.241 52.844-59.241c29.665 0 53.306 26.82 52.843 59.239 0 32.654-23.41 59.241-52.843 59.241m195.38 0c-28.971 0-52.843-26.587-52.843-59.239s23.409-59.241 52.843-59.241c29.667 0 53.307 26.82 52.844 59.239 0 32.654-23.177 59.241-52.844 59.241"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/abc8747/am4" target="_blank" rel="noopener" title="Source code" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["search.suggest", "search.highlight", "content.code.copy", "content.code.annotate", "navigation.expand", "navigation.footer"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.56ea9cef.min.js"></script>
+      
+        <script src="../../assets/js/katex.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
