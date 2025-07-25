@@ -2,7 +2,7 @@
     The [core](./core.md) must be built before running the bot.
 
 ### Configuration File
-The database and API can run out of the box without any configuration file using the [defaults](https://github.com/cathaypacific8747/am4/tree/master/src/am4/config.py). However, running the discord bot/building the frontend will require you to provide custom config.
+The database and API can run out of the box without any configuration file using the [defaults](https://github.com/abc8747/am4/tree/master/src/am4/config.py). However, running the discord bot/building the frontend will require you to provide custom config.
 
 To do this, rename `./config.example.json` to `./config.json` and modify it. Then, run:
 ```sh

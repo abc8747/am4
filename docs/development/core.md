@@ -2,7 +2,7 @@
 If you are using VSCode, install the recommended extensions and use Tasks instead of manually executing the commands.
 
 #### Modifying it
-The main entry point is the [debug executable](https://github.com/cathaypacific8747/am4/tree/master/src/am4/utils/cpp/main.cpp).
+The main entry point is the [debug executable](https://github.com/abc8747/am4/tree/master/src/am4/utils/cpp/main.cpp).
 
 A C++17 compliant compiler and Linux system is required to build it.
 
@@ -46,4 +46,4 @@ init() # IMPORTANT: loads the aircraft, airport and routes etc.
 a = Aircraft.search("b744")
 print(a.ac)
 ```
-To learn more on how to use it, check out the [tests](https://github.com/cathaypacific8747/am4/tree/master/src/am4/utils/tests/), [generated stubs](https://github.com/cathaypacific8747/am4/tree/master/src/am4/utils/stubs/utils/) or the API reference.
+To learn more on how to use it, check out the [tests](https://github.com/abc8747/am4/tree/master/src/am4/utils/tests/), [generated stubs](https://github.com/abc8747/am4/tree/master/src/am4/utils/stubs/utils/) or the API reference.

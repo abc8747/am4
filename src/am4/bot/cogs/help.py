@@ -27,8 +27,8 @@ class HelpCog(BaseCog):
         embed.add_field(
             name="Contribute",
             value=(
-                "[Source code](https://github.com/cathaypacific8747/am4), "
-                "[list of formulae and documentation](https://cathaypacific8747.github.io/am4) "
+                "[Source code](https://github.com/abc8747/am4), "
+                "[list of formulae and documentation](https://abc8747.github.io/am4) "
                 "is open-source on GitHub. Feel free to open an issue or pull request!"
             ),
             inline=False,

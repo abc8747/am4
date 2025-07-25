@@ -3,7 +3,7 @@ By Cathay Express, Star Alliance and other contributors.
 Last major revision: 7 Jul 2021, last updated: 22 Aug 2024
 
 If you have any suggestions or error corrections, open an
-[issue](https://github.com/cathaypacific8747/am4/issues) or contact me via our
+[issue](https://github.com/abc8747/am4/issues) or contact me via our
 [Discord server](https://discord.gg/4tVQHtf).
 
 Unless specified or otherwise, all formulae are for <span class="easy">easy</span> mode.
@@ -349,7 +349,7 @@ Confidence: <span class="c-moderate">90%</span> ($R^2 = 0.985, 0.999$)
 
         Psuedocode: `offset = PRNG(seed=hash(airport1, airport2)).next()` and `hash` is commutative.
 
-        See [GitHub](https://github.com/cathaypacific8747/am4/tree/master/docs/assets/scripts/demand-research/old) for attempts to uncover it.
+        See [GitHub](https://github.com/abc8747/am4/tree/master/docs/assets/scripts/demand-research/old) for attempts to uncover it.
 
         In practice, we store this in a giant hashtable.
 
@@ -665,7 +665,7 @@ Found*: 21 Jan 2022 (Cathay Express)
 
 Updated: 25 Jan 2022 (Cathay Express, reduced by \~50%)
 
-See [GitHub](https://github.com/cathaypacific8747/am4/tree/master/docs/assets/scripts/hangar-research/main.py) for raw data.
+See [GitHub](https://github.com/abc8747/am4/tree/master/docs/assets/scripts/hangar-research/main.py) for raw data.
 
 ![Hangar Expansion](./assets/img/hangar-10.svg){: .center}
 

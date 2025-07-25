@@ -1,8 +1,8 @@
 site_name: am4
 site_description: Discord bot and various utilities for the game Airline Manager 4.
-repo_name: cathaypacific8747/am4
-repo_url: https://github.com/cathaypacific8747/am4
-site_url: https://cathaypacific8747.github.io/am4/
+repo_name: abc8747/am4
+repo_url: https://github.com/abc8747/am4
+site_url: https://abc8747.github.io/am4/
 nav:
   - Home: 'index.md'
   - Development:
@@ -155,5 +155,5 @@ extra:
       link: https://discord.gg/4tVQHtf
       name: Airline Manager 4 Discord
     - icon: fontawesome/brands/github
-      link: https://github.com/cathaypacific8747/am4
+      link: https://github.com/abc8747/am4
       name: Source code

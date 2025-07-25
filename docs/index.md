@@ -4,15 +4,15 @@
 
 The weekly leaderboards and alliances are highly competitive arenas which require extensive knowledge in the game: this repository contains a set of high-performance foundational tools, built for the more technical-oriented players. The project is structured as follows:
 
-- [x] core calculations written in C++ for exhaustive searches ([`src/am4/utils`](https://github.com/cathaypacific8747/am4/tree/master/src/am4/utils))
-- [x] a Python web API exposing the core ([`src/am4/api`](https://github.com/cathaypacific8747/am4/tree/master/src/am4/api/))
-- [x] an sqlite database storing user settings ([`src/am4/db`](https://github.com/cathaypacific8747/am4/tree/master/src/am4/db/)) 
-- [x] a Python discord bot for our community ([`src/am4/bot`](https://github.com/cathaypacific8747/am4/tree/master/src/am4/bot/))
+- [x] core calculations written in C++ for exhaustive searches ([`src/am4/utils`](https://github.com/abc8747/am4/tree/master/src/am4/utils))
+- [x] a Python web API exposing the core ([`src/am4/api`](https://github.com/abc8747/am4/tree/master/src/am4/api/))
+- [x] an sqlite database storing user settings ([`src/am4/db`](https://github.com/abc8747/am4/tree/master/src/am4/db/)) 
+- [x] a Python discord bot for our community ([`src/am4/bot`](https://github.com/abc8747/am4/tree/master/src/am4/bot/))
 
 A new version (v0.2) is currently under development* so you can run it on the web ([`am4help.com`](https://am4help.com/)) and completely offline.
 
-- [ ] core library in Rust ([`am4`](https://github.com/cathaypacific8747/am4/tree/master/am4))
-- [ ] a web frontend using WASM ([`am4-web`](https://github.com/cathaypacific8747/am4/tree/master/am4-web))
+- [ ] core library in Rust ([`am4`](https://github.com/abc8747/am4/tree/master/am4))
+- [ ] a web frontend using WASM ([`am4-web`](https://github.com/abc8747/am4/tree/master/am4-web))
 - [ ] a discord bot
 
 <figure markdown="span">

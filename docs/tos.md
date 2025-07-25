@@ -1,4 +1,4 @@
-AM4Help provides a set of foundational tools that compute statistics and strategies for the game Airline Manager 4 ("AM4"). The AM4Help discord bot is a managed service, and you may obtain a copy of the source code [here](https://github.com/cathaypacific8747/am4).
+AM4Help provides a set of foundational tools that compute statistics and strategies for the game Airline Manager 4 ("AM4"). The AM4Help discord bot is a managed service, and you may obtain a copy of the source code [here](https://github.com/abc8747/am4).
 
 If you have any requests, do not hesistate to contact us through email at `am4@ylcheung.com`, or opening a ticket on our [support server](https://discord.gg/4tVQHtf).
 

@@ -31,8 +31,8 @@ pub fn Header() -> impl IntoView {
     view! {
         <header role="banner">
             <div id="global-nav">
-                <a href="https://cathaypacific8747.github.io/am4/" target="_blank">
-                    <img src="/assets/img/logo-64.webp" alt="logo" height="32" width="32"/>
+                <a href="https://abc8747.github.io/am4/" target="_blank">
+                    <img src="/assets/img/logo-64.webp" alt="logo" height="32" width="32" />
                 </a>
                 <div>
                     <span id="name">AM4Help</span>
@@ -49,9 +49,7 @@ pub fn Header() -> impl IntoView {
                         </li>
                         <li>"Console"</li>
                         <li>
-                            <a href="https://cathaypacific8747.github.io/am4/formulae/">
-                                "Formulae"
-                            </a>
+                            <a href="https://abc8747.github.io/am4/formulae/">"Formulae"</a>
                         </li>
                         <li
                             id="clear-database"

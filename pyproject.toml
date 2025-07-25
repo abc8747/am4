@@ -17,7 +17,7 @@ sdist.exclude = ["misc/demand-research", "src/am4/utils/data/*.parquet"]
 name = "am4"
 version = "0.1.10-alpha.1"
 description = "Tools and utilities for the game Airline Manager 4."
-authors = [{ name = "cathaypacific8747", email = "abraham@ylcheung.com" }]
+authors = [{ name = "abc8747", email = "abraham@ylcheung.com" }]
 license = { text = "MIT License" }
 readme = "README.md"
 requires-python = ">=3.9"

@@ -263,7 +263,7 @@ pub enum AircraftSearchError {
     InvalidColumnSpecifier(String),
     #[error("Aircraft `{0:?}` not found")]
     AircraftNotFound(QueryCtx),
-    #[error("Engine with priority `{src}` does not exist for this aircraft. Did you mean: {}?", .suggestions.iter().map(|p| format!("`{}`", p)).collect::<Vec<String>>().join(", "))]
+    #[error("Engine with priority `{src}` does not exist for this aircraft. Did you mean: {}?", .suggestions.iter().map(|p| format!("`{p}`")).collect::<Vec<String>>().join(", "))]
     EnginePriorityNotFound {
         src: EnginePriority,
         suggestions: Vec<EnginePriority>,

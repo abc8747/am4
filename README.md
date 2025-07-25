@@ -1,6 +1,6 @@
 # ![logo](docs/assets/img/logo-small.png) am4
 
-[![](https://dcbadge.vercel.app/api/server/4tVQHtf?style=flat)](https://discord.gg/4tVQHtf) [![CI](https://github.com/cathaypacific8747/am4/actions/workflows/ci.yml/badge.svg)](https://github.com/cathaypacific8747/am4/actions/workflows/ci.yml)
+[![](https://dcbadge.vercel.app/api/server/4tVQHtf?style=flat)](https://discord.gg/4tVQHtf) [![CI](https://github.com/abc8747/am4/actions/workflows/ci.yml/badge.svg)](https://github.com/abc8747/am4/actions/workflows/ci.yml)
 
 [Airline Manager 4](https://airlinemanager.com) is an online multiplayer game whose goal is to build an airline from scratch. Rapid progression in the game requires thorough market research and route planning to high demand destinations, while considering recurring fuel/CO2 costs, and conforming to aircraft range/runway requirement constraints.
 
@@ -33,4 +33,4 @@ docker build -t am4 .
 docker run -d -p 8002:8002 -p 8090:8090 --name am4-dev am4
 ```
 
-Please see the [documentation](https://cathaypacific8747.github.io/am4/) for detailed formulae, installation and usage guides.
+Please see the [documentation](https://abc8747.github.io/am4/) for detailed formulae, installation and usage guides.
