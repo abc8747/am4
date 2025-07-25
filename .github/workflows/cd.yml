@@ -11,14 +11,14 @@ jobs:
     name: Build sdist for am4utils
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Build sdist
         working-directory: ./
         run: pipx run build --sdist
 
       - name: Store artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dist
           path: ./dist/*.tar.gz
@@ -33,14 +33,18 @@ jobs:
           - os: ubuntu-latest
             python: 39
             platform_id: "manylinux_x86_64"
-            manylinux_image:
           - os: ubuntu-latest
             python: 310
             platform_id: "manylinux_x86_64"
           - os: ubuntu-latest
             python: 311
             platform_id: "manylinux_x86_64"
-
+          - os: ubuntu-latest
+            python: 312
+            platform_id: "manylinux_x86_64"
+          - os: ubuntu-latest
+            python: 313
+            platform_id: "manylinux_x86_64"
           - os: macos-latest
             python: 39
             platform_id: "macosx_x86_64"
@@ -58,9 +62,15 @@ jobs:
             platform_id: "macosx_arm64"
           - os: macos-latest
             python: 311
+            platform_id: "macosx_arm64"
+          - os: macos-latest
+            python: 312
+            platform_id: "macosx_arm64"
+          - os: macos-latest
+            python: 313
             platform_id: "macosx_arm64"
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: build and test wheels
         working-directory: ./
@@ -73,7 +83,7 @@ jobs:
         run: pipx run cibuildwheel --output-dir wheelhouse
 
       - name: Store artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dist
           path: ./wheelhouse/*.whl
@@ -81,6 +91,10 @@ jobs:
   upload_pypi:
     needs: [build_wheels, build_sdist]
     runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write  # mandatory for trusted publishing
+
     steps:
       - uses: actions/download-artifact@v4
         with:
@@ -88,5 +102,3 @@ jobs:
           path: dist
 
       - uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          password: ${{ secrets.PYPI_API_TOKEN }}

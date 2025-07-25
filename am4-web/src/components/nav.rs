@@ -8,10 +8,10 @@ impl std::fmt::Display for LoadDbProgress {
         match self {
             LoadDbProgress::Starting => write!(f, "starting"),
             LoadDbProgress::IDBConnect => write!(f, "idb(connect)"),
-            LoadDbProgress::IDBRead(key) => write!(f, "idb(read): {}", key),
-            LoadDbProgress::IDBWrite(key) => write!(f, "idb(write): {}", key),
-            LoadDbProgress::Fetching(key) => write!(f, "fetch: {}", key),
-            LoadDbProgress::Parsing(key) => write!(f, "parse: {}", key),
+            LoadDbProgress::IDBRead(key) => write!(f, "idb(read): {key}"),
+            LoadDbProgress::IDBWrite(key) => write!(f, "idb(write): {key}"),
+            LoadDbProgress::Fetching(key) => write!(f, "fetch: {key}"),
+            LoadDbProgress::Parsing(key) => write!(f, "parse: {key}"),
             LoadDbProgress::Loaded => write!(f, ""),
             LoadDbProgress::Err => write!(f, "error"),
         }

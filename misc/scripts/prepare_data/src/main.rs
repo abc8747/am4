@@ -71,11 +71,11 @@ fn convert_routes(out_dir: &Path) {
     let spl = buf.len() / 2;
     let mut file0 = std::fs::File::create(out_dir.join(DEM_FILENAME0)).unwrap();
     file0.write_all(&buf[..spl]).unwrap();
-    println!("wrote ..{:} to {:?}", spl, file0);
+    println!("wrote ..{spl:} to {file0:?}");
 
     let mut file1 = std::fs::File::create(out_dir.join(DEM_FILENAME1)).unwrap();
     file1.write_all(&buf[spl..]).unwrap();
-    println!("wrote {:}.. to {:?}", spl, file1);
+    println!("wrote {spl:}.. to {file1:?}");
 }
 
 fn convert_airports(out_dir: &Path) {

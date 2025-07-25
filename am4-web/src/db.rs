@@ -119,13 +119,13 @@ impl Idb {
 
     pub async fn _init_db(&self) -> Result<Data, DatabaseError> {
         let bytes = self
-            .get_blob(AP_FILENAME, format!("assets/{}", AP_FILENAME).as_str())
+            .get_blob(AP_FILENAME, format!("assets/{AP_FILENAME}").as_str())
             .await?;
         let airports = Airports::from_bytes(&bytes).unwrap();
         log!("airports: {}", airports.data().len());
 
         let bytes = self
-            .get_blob(AC_FILENAME, format!("assets/{}", AC_FILENAME).as_str())
+            .get_blob(AC_FILENAME, format!("assets/{AC_FILENAME}").as_str())
             .await?;
         let aircrafts = Aircrafts::from_bytes(&bytes).unwrap();
         log!("aircrafts: {}", aircrafts.data().len());

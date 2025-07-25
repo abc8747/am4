@@ -15,7 +15,7 @@ sdist.exclude = ["misc/demand-research", "src/am4/utils/data/*.parquet"]
 
 [project]
 name = "am4"
-version = "0.1.10-alpha.1"
+version = "0.1.10"
 description = "Tools and utilities for the game Airline Manager 4."
 authors = [{ name = "abc8747", email = "abraham@ylcheung.com" }]
 license = { text = "MIT License" }

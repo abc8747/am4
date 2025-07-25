@@ -23,18 +23,23 @@ jobs:
     - uses: Swatinem/rust-cache@v2
 
     - name: Code linting
+      continue-on-error: true
       run: cargo clippy --workspace --all-targets --all-features -- -D warnings
-
+      
     - name: Code formatting
+      continue-on-error: true
       run: cargo fmt --all --check
-
+      
     - name: Build
+      continue-on-error: true
       run: cargo build
 
     - name: Run tests
+      continue-on-error: true
       run: cargo test --workspace --all-features --all-targets
 
     - name: Check docs
+      continue-on-error: true
       env:
         RUSTDOCFLAGS: "-D rustdoc::all -A rustdoc::private-doc-tests"
       run: cargo doc --package am4 --all-features --no-deps

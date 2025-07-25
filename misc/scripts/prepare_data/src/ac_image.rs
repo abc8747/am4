@@ -26,7 +26,7 @@ pub fn process(images: &Series, out_dir: &Path) -> Vec<Image> {
         .map(|x| {
             let filename = Path::new(x).file_name().unwrap();
             Image {
-                url: format!("https://www.airlinemanager.com/{}", x),
+                url: format!("https://www.airlinemanager.com/{x}"),
                 file_name: filename.to_str().unwrap().to_string(),
                 fp_raw: base_fp.join("aircraft-raw").join(filename),
                 fp_processed: out_dir
