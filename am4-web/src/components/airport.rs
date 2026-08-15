@@ -111,6 +111,7 @@ pub fn APSearch(
     });
 
     let serialize = Callback::new(|ap: Airport| ap.icao.to_string());
+    let key = Callback::new(|ap: Airport| ap.idx);
 
     view! {
         <div class="ap-search">
@@ -125,6 +126,7 @@ pub fn APSearch(
                 render_option=render_option
                 render_pill=render_pill
                 serialize=serialize
+                key=key
                 parse_token=parse_token
             />
         </div>

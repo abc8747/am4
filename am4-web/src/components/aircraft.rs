@@ -44,6 +44,19 @@ impl ACSelection {
     }
 }
 
+fn selection_key(item: ACSelection) -> usize {
+    let id: u16 = item.aircraft().id.into();
+    let priority = item
+        .modification()
+        .map_or(item.aircraft().priority.get(), |mods| mods.engine.get());
+    let kind = match item {
+        ACSelection::Single(_, _) => 0,
+        ACSelection::Header(_) => 1,
+        ACSelection::Variant(_, _) => 2,
+    };
+    (usize::from(id) << 16) | (usize::from(priority) << 8) | kind
+}
+
 #[allow(non_snake_case)]
 #[component]
 pub fn ACSearch(
@@ -373,6 +386,7 @@ pub fn ACSearch(
             .map(|ca| ca.to_string())
             .unwrap_or_default()
     });
+    let key = Callback::new(selection_key);
 
     view! {
         <div id="ac-search">
@@ -386,6 +400,7 @@ pub fn ACSearch(
                 render_option=render_option
                 render_pill=render_pill
                 serialize=serialize
+                key=key
                 parse_token=parse_token
                 is_selectable=is_selectable
             />

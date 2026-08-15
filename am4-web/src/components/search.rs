@@ -1,5 +1,6 @@
 use leptos::html::Input;
 use leptos::prelude::*;
+use std::collections::HashMap;
 use std::time::Duration;
 use wasm_bindgen_futures::{spawn_local, JsFuture};
 use web_sys::KeyboardEvent;
@@ -13,6 +14,24 @@ fn copy_to_clipboard(text: String) {
     }
 }
 
+fn keyed_items<T: Clone>(
+    items: Vec<T>,
+    key: Callback<T, usize>,
+) -> Vec<((usize, usize), usize, T)> {
+    let mut occurrences = HashMap::<usize, usize>::with_capacity(items.len());
+    items
+        .into_iter()
+        .enumerate()
+        .map(|(index, item)| {
+            let base = key.run(item.clone());
+            let occurrence = occurrences.entry(base).or_default();
+            let stable_key = (base, *occurrence);
+            *occurrence += 1;
+            (stable_key, index, item)
+        })
+        .collect()
+}
+
 #[component]
 pub fn MultiSelect<T, ViewOpt, ViewPill>(
     #[prop(into)] selected: RwSignal<Vec<T>>,
@@ -21,6 +40,7 @@ pub fn MultiSelect<T, ViewOpt, ViewPill>(
     render_option: ViewOpt,
     render_pill: ViewPill,
     serialize: Callback<T, String>,
+    key: Callback<T, usize>,
     #[prop(optional, into)] parse_token: Option<Callback<String, Option<T>>>,
     #[prop(optional, into)] max_items: Option<usize>,
     #[prop(optional, into)] placeholder: String,
@@ -411,15 +431,9 @@ where
         >
             <div class="pills">
                 <For
-                    each=move || {
-                        selected
-                            .get()
-                            .into_iter()
-                            .enumerate()
-                            .collect::<Vec<(usize, T)>>()
-                    }
-                    key=|(idx, _)| *idx
-                    children=move |(idx, item)| {
+                    each=move || keyed_items(selected.get(), key)
+                    key=|(stable_key, _, _)| *stable_key
+                    children=move |(_, idx, item)| {
                         let item_for_active = item.clone();
                         let item_for_enter = item.clone();
                         let item_for_click = item.clone();
@@ -489,9 +503,9 @@ where
             <Show when=move || is_focused.get() && !suggestions.with(|s| s.is_empty())>
                 <div class="dropdown">
                     <For
-                        each=move || suggestions.get().into_iter().enumerate()
-                        key=|_| uuid::Uuid::new_v4()
-                        children=move |(i, item)| {
+                        each=move || keyed_items(suggestions.get(), key)
+                        key=|(stable_key, _, _)| *stable_key
+                        children=move |(_, i, item)| {
                             let item_for_click = item.clone();
                             let item_for_update = item.clone();
                             let render_option = render_option;

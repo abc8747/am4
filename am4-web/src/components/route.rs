@@ -815,6 +815,24 @@ pub fn RouteOptions(
             && !ap_selected.get().is_empty()
             && (!show_destination_input.get() || !ap_destination.get().is_empty())
     });
+    let route_settings = Memo::new(move |_| {
+        settings.with(|s| {
+            (
+                s.training.wear,
+                s.training.repair,
+                s.training.l,
+                s.training.h,
+                s.training.fuel,
+                s.training.co2,
+                s.fuel_price,
+                s.co2_price,
+                s.load,
+                s.cargo_load,
+                s.revenue_loss_tol,
+                s.allow_invalid_tpd,
+            )
+        })
+    });
 
     Effect::new(move |_| {
         let max = dist_max.get();
@@ -828,7 +846,8 @@ pub fn RouteOptions(
         let ap_sel = ap_selected.get();
         let ap_dest = ap_destination.get();
         let mode = search_mode.get();
-        let user_settings = settings.get();
+        route_settings.track();
+        let user_settings = settings.get_untracked();
         let gm = game_mode.get();
         let sort = sort_by.get();
         let d_min = dist_min.get();
@@ -1027,14 +1046,15 @@ pub fn RouteList(
     });
 
     let paged_results = Memo::new(move |_| {
-        let all = routes.get();
         let p = page.get();
-        let start = p * page_size;
-        if start >= all.len() {
-            return vec![];
-        }
-        let end = (start + page_size).min(all.len());
-        all[start..end].to_vec()
+        routes.with(|all| {
+            let start = p * page_size;
+            if start >= all.len() {
+                return vec![];
+            }
+            let end = (start + page_size).min(all.len());
+            all[start..end].to_vec()
+        })
     });
 
     let total_pages = Memo::new(move |_| {
@@ -1140,6 +1160,17 @@ struct StatItem {
     class: &'static str,
 }
 
+fn airport_code(settings: RwSignal<Settings>, airport: &Airport) -> Signal<String> {
+    let iata = airport.iata.to_string();
+    let icao = airport.icao.to_string();
+    Signal::derive(move || {
+        settings.with(|s| match s.airport_code_pref {
+            AirportCodePref::Iata => iata.clone(),
+            AirportCodePref::Icao => icao.clone(),
+        })
+    })
+}
+
 #[component]
 pub fn RouteCard(route: WebScheduledRoute, show_origin: Signal<bool>) -> impl IntoView {
     let settings = expect_context::<RwSignal<Settings>>();
@@ -1158,15 +1189,8 @@ pub fn RouteCard(route: WebScheduledRoute, show_origin: Signal<bool>) -> impl In
         String::new()
     };
 
-    let format_code = move |ap: &Airport| {
-        settings.with(|s| match s.airport_code_pref {
-            AirportCodePref::Iata => ap.iata.to_string(),
-            AirportCodePref::Icao => ap.icao.to_string(),
-        })
-    };
-
-    let origin_code = format_code(&route.origin);
-    let dest_code = format_code(&route.destination);
+    let origin_code = airport_code(settings, &route.origin);
+    let dest_code = airport_code(settings, &route.destination);
 
     let render_row = |label: &'static str, items: Vec<StatItem>| {
         view! {
@@ -1309,7 +1333,7 @@ pub fn RouteCard(route: WebScheduledRoute, show_origin: Signal<bool>) -> impl In
                     <div class="dest-block">
                         <span class="label">"from"</span>
                         <div class="codes">
-                            <span class="main">{origin_code.clone()}</span>
+                            <span class="main">{origin_code}</span>
                         </div>
                         <div class="name">
                             {route.origin.name.to_string()} ", " {route.origin.country.to_string()}
@@ -1319,7 +1343,7 @@ pub fn RouteCard(route: WebScheduledRoute, show_origin: Signal<bool>) -> impl In
                 {route
                     .stopover
                     .map(|stop| {
-                        let stop_code = format_code(&stop);
+                        let stop_code = airport_code(settings, &stop);
                         view! {
                             <div class="dest-block">
                                 <span class="label">"via"</span>
@@ -1421,15 +1445,8 @@ pub fn FerryRouteCard(route: WebFerryRoute, show_origin: Signal<bool>) -> impl I
 
     let ft_str = format_flight_time_hms(route.flight_time);
 
-    let format_code = move |ap: &Airport| {
-        settings.with(|s| match s.airport_code_pref {
-            AirportCodePref::Iata => ap.iata.to_string(),
-            AirportCodePref::Icao => ap.icao.to_string(),
-        })
-    };
-
-    let origin_code = format_code(&route.origin);
-    let dest_code = format_code(&route.destination);
+    let origin_code = airport_code(settings, &route.origin);
+    let dest_code = airport_code(settings, &route.destination);
 
     let fuel_price = settings.get().fuel_price.get();
     let fuel_cost = route.fuel * fuel_price / 1000.0;
@@ -1441,7 +1458,7 @@ pub fn FerryRouteCard(route: WebFerryRoute, show_origin: Signal<bool>) -> impl I
                     <div class="dest-block">
                         <span class="label">"from"</span>
                         <div class="codes">
-                            <span class="main">{origin_code.clone()}</span>
+                            <span class="main">{origin_code}</span>
                         </div>
                         <div class="name">
                             {route.origin.name.to_string()} ", " {route.origin.country.to_string()}

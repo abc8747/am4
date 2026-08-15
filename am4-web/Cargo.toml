@@ -14,7 +14,7 @@ console_error_panic_hook = "0.1.7"
 # we are using uuids in <For key={}> which is not performant.
 # TODO: properly build hash using inputs/outputs
 uuid = { version = "1.10.0", features = ["v4", "js"] }
-leptos = { version = "0.8.15", features = ["csr"] }
+leptos = { version = "0.8.20", features = ["csr"] }
 
 [dependencies.web-sys]
 version = "0.3"

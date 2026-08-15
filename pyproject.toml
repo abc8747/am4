@@ -7,7 +7,6 @@ build-dir = "src/am4/utils/build"
 cmake.args = ["-DEXCLUDE_EXECUTABLES=1"]
 cmake.build-type = "Release"
 cmake.source-dir = "src/am4/utils"
-cmake.verbose = true
 logging.level = "DEBUG"
 wheel.install-dir = "am4"
 wheel.expand-macos-universal-tags = true
