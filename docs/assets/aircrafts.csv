@@ -500,3 +500,4 @@ id,shortname,manufacturer,name,type,priority,eid,ename,speed,fuel,co2,cost,capac
 383,ch605vip,Bombardier,Challenger 605-VIP,2,1,166,GE CF-34-3B,846,3.68,0.05,860590,12,3780,12705,10701,40000,2000,2,1,1,1,assets/img/aircraft/png/challenger300_vip.png,21,20
 384,ccxvip,Cessna,Citation X-VIP,2,0,0,(unspecified),1013,7,0.08,583993,12,4000,20559,8600,40000,1500,2,1,1,2,assets/img/aircraft/png/citationx_vip.png,22,19
 384,ccxvip,Cessna,Citation X-VIP,2,1,121,RR/Allison AE 3007C1,1002.87,6.44,0.08,583993,12,4000,20559,8600,40000,1500,2,1,1,2,assets/img/aircraft/png/citationx_vip.png,22,19
+385,a351ulr,Airbus,A350-1000ULR,0,0,46,RR Trent XWB,891.8,12.22,0.15,105500250,220,9186,2900000,19000,45000,300,4,10,4,4,assets/img/aircraft/png/a350-900.png,64,73

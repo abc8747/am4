@@ -238,7 +238,7 @@ uint16_t Database::get_aircraft_idx_by_id(uint16_t id, uint8_t priority) {
         {352, 450}, {353, 451}, {355, 453}, {356, 454}, {357, 455}, {358, 457}, {359, 459}, {360, 460}, {361, 464},
         {362, 468}, {363, 471}, {364, 474}, {365, 475}, {366, 477}, {367, 479}, {368, 480}, {369, 482}, {370, 483},
         {371, 484}, {372, 485}, {373, 486}, {374, 487}, {375, 488}, {376, 489}, {377, 491}, {378, 492}, {379, 493},
-        {380, 494}, {381, 495}, {382, 496}
+        {380, 494}, {381, 495}, {382, 496}, {383, 497}, {384, 499}, {385, 501}
     };
     auto search = idx_id_map.find(id);
     if (search != idx_id_map.end()) {
@@ -256,7 +256,7 @@ const uint16_t missing_acids[] = {54,  57,  65,  70,  77,  78,  79,  80,  81,  8
                                   261, 262, 263, 264, 265, 278, 279, 280, 286, 296, 297, 301, 319, 354};
 Aircraft Database::get_aircraft_by_id(uint16_t id, uint8_t priority) {
     if (std::find(std::begin(missing_acids), std::end(missing_acids), id) != std::end(missing_acids)) return Aircraft();
-    if (id > 384) return Aircraft();
+    if (id > 385) return Aircraft();
     return aircrafts[Database::get_aircraft_idx_by_id(id, priority)];
 }
 

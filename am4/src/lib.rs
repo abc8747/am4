@@ -23,7 +23,7 @@ pub mod route;
 #[macro_export]
 macro_rules! ac_version {
     () => {
-        "8"
+        "9"
     };
 }
 pub const AC_FILENAME: &str = concat!("aircrafts-v", ac_version!(), ".bin");
