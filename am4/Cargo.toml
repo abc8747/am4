@@ -5,7 +5,7 @@ authors = ["Abraham Cheung <abraham@ylcheung.com>"]
 edition = "2021"
 
 [dependencies]
-jaro_winkler = "0.1.0"
+jaro_winkler = "0.1" # NOTE: 0.2.1 uses f32, not bumping for now
 thiserror = "2"
 once_cell = "1.19.0"
 uuid = { version = "1.10.0", features = ["v4"] }

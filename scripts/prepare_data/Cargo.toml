@@ -6,7 +6,7 @@ edition = "2021"
 [dependencies]
 am4 = { path = "../../am4" }
 image = "0.25.1"
-polars = { version = "0.52.0", features = [
+polars = { version = "0.55.2", features = [
     "lazy",
     "dtype-u16",
     "dtype-u8",

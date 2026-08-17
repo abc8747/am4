@@ -21,7 +21,7 @@ pub fn process(images: &Series, out_dir: &Path) -> Vec<Image> {
     let images: Vec<Image> = images
         .str()
         .unwrap()
-        .into_iter()
+        .iter()
         .flatten()
         .map(|x| {
             let filename = Path::new(x).file_name().unwrap();

@@ -164,7 +164,7 @@ fn Ap(airport: Airport) -> impl IntoView {
                 </tr>
                 <tr>
                     <th>"Location"</th>
-                    <td>{format!("{}, {}", &airport.location.lat, &airport.location.lng)}</td>
+                    <td>{format!("{}, {}", airport.location.lat, airport.location.lng)}</td>
                 </tr>
                 <tr>
                     <th>"Runway"</th>

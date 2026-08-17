@@ -26,7 +26,7 @@ fn convert_routes(out_dir: &Path) {
     schema.with_column("d".into(), DataType::Float64);
     schema.with_column("rwy".into(), DataType::UInt16);
 
-    let lf = LazyCsvReader::new(PlPath::from_string(format!("{DB_DATA_DIR}/routes.csv")))
+    let lf = LazyCsvReader::new(PlRefPath::new(format!("{DB_DATA_DIR}/routes.csv")))
         .with_has_header(false)
         .with_schema(Some(Arc::new(schema)))
         .finish()
@@ -104,7 +104,7 @@ fn convert_airports(out_dir: &Path) {
 
     let path_airport_csv = format!("{DB_DATA_DIR}/airports.csv");
     std::fs::copy(&path_airport_csv, format!("{DOCS_DIR}/airports.csv")).unwrap();
-    let lf = LazyCsvReader::new(PlPath::from_string(format!("{DB_DATA_DIR}/airports.csv")))
+    let lf = LazyCsvReader::new(PlRefPath::new(format!("{DB_DATA_DIR}/airports.csv")))
         .with_has_header(true)
         .with_schema(Some(Arc::new(schema)))
         .finish()
@@ -190,7 +190,7 @@ fn convert_aircrafts(out_dir: &Path) {
 
     let path_aircraft_csv = format!("{DB_DATA_DIR}/aircrafts.csv");
     std::fs::copy(&path_aircraft_csv, format!("{DOCS_DIR}/aircrafts.csv")).unwrap();
-    let lf = LazyCsvReader::new(PlPath::from_string(format!("{DB_DATA_DIR}/aircrafts.csv")))
+    let lf = LazyCsvReader::new(PlRefPath::new(format!("{DB_DATA_DIR}/aircrafts.csv")))
         .with_has_header(true)
         .with_schema(Some(Arc::new(schema)))
         .finish()
